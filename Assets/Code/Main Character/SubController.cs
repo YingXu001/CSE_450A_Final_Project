@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class SubController : MonoBehaviour
 {
-    public float moveSpeed = 5f;  // Adjust the speed as needed
-    public float rotationSpeed = 2f;  // Adjust the rotation speed as needed
+    // Outlets
     public Rigidbody2D submarineRigidbody;
+    public Transform submarinePivot;
+    public GameObject bulletPrefab;
+
+    // States Tracking
+    public float moveSpeed = 100f;  // Adjust the speed as needed
+    public float rotationSpeed = 50f;  // Adjust the rotation speed as needed
 
     // Start is called before the first frame update
     void Start()
@@ -14,7 +19,6 @@ public class SubController : MonoBehaviour
         submarineRigidbody = GetComponent<Rigidbody2D>();
         // Lock the cursor to the game window to prevent it from going off-screen.
         Cursor.lockState = CursorLockMode.Locked;
-
     }
 
     // Update is called once per frame
@@ -22,28 +26,18 @@ public class SubController : MonoBehaviour
     {
         // W and S to move forward and backward
         float verticalInput = Input.GetAxis("Vertical");
+        submarineRigidbody.AddRelativeForce(Vector2.up * verticalInput * moveSpeed * Time.deltaTime);
 
-        // Calculate movement vector.
-        Vector2 moveDirection = transform.up * verticalInput * moveSpeed;
-
-        // Apply movement to the submarine.
-        submarineRigidbody.velocity = moveDirection;
-
-        // Handle player input for rotation.
+        // a and d for rotation.
         float horizontalInput = Input.GetAxis("Horizontal");
+        submarineRigidbody.AddTorque(-horizontalInput * rotationSpeed * Time.deltaTime);
 
-        // Calculate rotation.
-        float rotation = -horizontalInput * rotationSpeed;
-
-        // Apply rotation to the submarine.
-        submarineRigidbody.angularVelocity = rotation;
-        
-
-
-        // Clamp the submarine's velocity to prevent excessive speed.
-        if (submarineRigidbody.velocity.magnitude > moveSpeed)
+        // space for firing the bullet
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            submarineRigidbody.velocity = submarineRigidbody.velocity.normalized * moveSpeed;
+            GameObject newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            newBullet.transform.position = transform.position;
+            newBullet.transform.rotation = submarinePivot.rotation;
         }
     }
 }
