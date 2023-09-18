@@ -13,6 +13,12 @@ public class SubController : MonoBehaviour
     public float moveSpeed = 100f;  // Adjust the speed as needed
     public float rotationSpeed = 50f;  // Adjust the rotation speed as needed
 
+    //ammo counts
+    public int numAmmo = 10;
+    //sound effects
+    public AudioClip out_of_ammo;
+    public AudioClip laser_shot;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,9 +41,22 @@ public class SubController : MonoBehaviour
         // space for firing the bullet
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            newBullet.transform.position = transform.position;
-            newBullet.transform.rotation = submarinePivot.rotation;
+            if(numAmmo == 0)
+            {
+                AudioSource.PlayClipAtPoint(out_of_ammo, transform.position);
+                return;
+            }
+            fireBullets();
+               
         }
+    }
+
+    public void fireBullets()
+    {
+        GameObject newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        newBullet.transform.position = transform.position;
+        newBullet.transform.rotation = submarinePivot.rotation;
+        numAmmo--;
+        AudioSource.PlayClipAtPoint(laser_shot, transform.position);
     }
 }
