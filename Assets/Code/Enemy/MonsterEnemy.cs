@@ -4,18 +4,30 @@ using UnityEngine;
 
 public class MonsterEnemy : MonoBehaviour
 {
-    public float pushBackForce = .2f;  // Force with which the submarine is pushed back, adjust as needed
+    public float pushBackForce = 10f;  // Force with which the submarine is pushed back, adjust as needed
+    private int timesHit = 0;     // Counter to keep track of the number of times the monster has been attacked
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Bullet")) {
+            timesHit++;
+
+            if (timesHit >= 3)
+            {
+                Destroy(gameObject);
+            }
+
+            Destroy(collision.gameObject);
+        }
+
         // Check if the colliding object is the submarine (tagged as Player)
-        if (collision.gameObject.CompareTag("Player"))
+        else if (collision.gameObject.CompareTag("Player"))
         {
             // Retrieve the Health component of the submarine and decrease its health
             Health playerHealth = collision.gameObject.GetComponent<Health>();
             if (playerHealth != null)
             {
-                playerHealth.DamagePlayer(10);
+                playerHealth.DamagePlayer(15);
             }
 
             // Push the submarine back in the opposite direction of its movement

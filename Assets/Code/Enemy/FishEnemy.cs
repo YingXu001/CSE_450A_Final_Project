@@ -5,12 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class FishEnemy : MonoBehaviour
 {
-    void OnCollisionEnter2D(Collision2D other)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        // Reload scene only when colliding with player
-        if (other.gameObject.GetComponent<SubController>())
+        if (collision.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Health playerHealth = collision.gameObject.GetComponent<Health>();
+            if (playerHealth != null)
+            {
+                playerHealth.DamagePlayer(10);
+            }
+            Destroy(gameObject);
+        }
+
+        else if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(gameObject);
         }
     }
 }

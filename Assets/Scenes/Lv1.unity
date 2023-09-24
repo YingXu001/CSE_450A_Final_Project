@@ -553,7 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4308a2899e329cd4f8c2a85c196fe7b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushBackForce: 10
+  pushBackForce: 5
 --- !u!50 &120038964
 Rigidbody2D:
   serializedVersion: 4
@@ -1700,7 +1700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4308a2899e329cd4f8c2a85c196fe7b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushBackForce: 10
+  pushBackForce: 5
 --- !u!50 &781721543
 Rigidbody2D:
   serializedVersion: 4
@@ -3634,6 +3634,7 @@ GameObject:
   - component: {fileID: 1812159031}
   - component: {fileID: 1812159032}
   - component: {fileID: 1812159033}
+  - component: {fileID: 1812159034}
   m_Layer: 7
   m_Name: Submarine
   m_TagString: Player
@@ -3686,7 +3687,7 @@ MonoBehaviour:
   - {fileID: 6226824758979878250, guid: df267fe85103d5c44b6998cc0aedff40, type: 3}
   - {fileID: 6226824758979878250, guid: 766747fae054abe42af566de4c146efb, type: 3}
   - {fileID: 6226824758979878250, guid: 4b58378fca4406e499ec46da967a2ba1, type: 3}
-  moveSpeed: 50
+  moveSpeed: 150
   rotationSpeed: 30
   numAmmo: 10
   out_of_ammo_sound: {fileID: 8300000, guid: 28efd7a981adc2b4090efe6e7ddc5f5f, type: 3}
@@ -4025,6 +4026,41 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!58 &1812159034
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812159025}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.78125
 --- !u!1 &1843189800
 GameObject:
   m_ObjectHideFlags: 0
