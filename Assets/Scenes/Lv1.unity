@@ -2926,7 +2926,7 @@ GameObject:
   - component: {fileID: 1995077407}
   - component: {fileID: 1995077406}
   - component: {fileID: 1995077405}
-  - component: {fileID: 1995077404}
+  - component: {fileID: 1995077408}
   m_Layer: 0
   m_Name: LvlExit
   m_TagString: Untagged
@@ -2934,18 +2934,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1995077404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1995077403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58b4ba7a9ef6ffa408e8308a9199dcb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &1995077405
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2975,7 +2963,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -3058,6 +3046,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1995077408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995077403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9959a30d6cca5e14da80887722f5efaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2086378703
 PrefabInstance:
   m_ObjectHideFlags: 0
