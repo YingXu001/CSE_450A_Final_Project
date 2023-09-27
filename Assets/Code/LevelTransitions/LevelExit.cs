@@ -9,7 +9,14 @@ public class LevelExit : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<SubController>())
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            if(SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+            }
+            else { 
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
+            }
+            
         }
     }
 }
