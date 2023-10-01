@@ -6,6 +6,45 @@ public class MonsterEnemy : MonoBehaviour
 {
     public float pushBackForce = 10f;  // Force with which the submarine is pushed back, adjust as needed
     private int timesHit = 0;     // Counter to keep track of the number of times the monster has been attacked
+    public float moveSpeed = 2f;
+    public float detectionDistance = 2f;
+
+    public Vector2 moveDirection;
+    private float randomMoveTime;
+
+    private void Start()
+    {
+        PickRandomDirection();
+    }
+
+    private void Update()
+    {
+        Move();
+        DetectObstacle();
+    }
+
+    void Move()
+    {
+        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+    }
+
+    void DetectObstacle()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, detectionDistance);
+        if (hit.collider != null)
+        {
+            if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Boundary"))
+            {
+                PickRandomDirection();
+            }
+        }
+    }
+
+    private void PickRandomDirection()
+    {
+        moveDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
