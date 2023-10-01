@@ -14,7 +14,6 @@ public class SubController : MonoBehaviour
     public float moveSpeed = 50f;  // Adjust the speed as needed
     public float rotationSpeed = 30f;  // Adjust the rotation speed as needed
     private int currentBullet = 1;
-    private bool isMoving = false;
 
     //ammo counts
     public int numAmmo = 10;
@@ -122,6 +121,15 @@ public class SubController : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         engine_sound.Stop();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Ammo"))
+        {
+            numAmmo++;
+            Destroy(other.gameObject);
+        }
     }
 
 }
