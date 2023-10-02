@@ -123,13 +123,4 @@ public class SubController : MonoBehaviour
         engine_sound.Stop();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Ammo"))
-        {
-            numAmmo++;
-            Destroy(other.gameObject);
-        }
-    }
-
 }

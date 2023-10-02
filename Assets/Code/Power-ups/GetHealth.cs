@@ -12,11 +12,12 @@ public class GetHealth : MonoBehaviour
         gameObject.tag = "Power-Cell";
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Health playerHealth = other.GetComponent<Health>();
+            // Retrieve the Health component of the submarine and increase its health
+            Health playerHealth = collision.gameObject.GetComponent<Health>();
             if (playerHealth != null)
             {
                 playerHealth.GetHealth(health);
