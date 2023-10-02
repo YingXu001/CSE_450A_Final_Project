@@ -8,6 +8,8 @@ public class MonsterEnemy : MonoBehaviour
     private int timesHit = 0;     // Counter to keep track of the number of times the monster has been attacked
     public float moveSpeed = 2f;
     public float detectionDistance = 2f;
+    private float changeDirectionDelay = 0.5f; // Duration for which the enemy keeps moving in the current direction after a collision
+    private float timeSinceLastDirectionChange;
 
     public Vector2 moveDirection;
     private float randomMoveTime;
@@ -15,6 +17,7 @@ public class MonsterEnemy : MonoBehaviour
     private void Start()
     {
         PickRandomDirection();
+        timeSinceLastDirectionChange = Time.time;
     }
 
     private void Update()
@@ -30,24 +33,50 @@ public class MonsterEnemy : MonoBehaviour
 
     void DetectObstacle()
     {
+        if (Time.time - timeSinceLastDirectionChange < changeDirectionDelay)
+            return;
+
         RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, detectionDistance);
         if (hit.collider != null)
         {
             if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Boundary"))
             {
-                PickRandomDirection();
+                Vector2 awayFromWall = transform.position - (Vector3)hit.point;
+                PickRandomDirectionAwayFromCollision(awayFromWall);
+                timeSinceLastDirectionChange = Time.time;
             }
         }
     }
 
+
     private void PickRandomDirection()
     {
-        moveDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+        const int maxAttempts = 5;
+        int attempts = 0;
+
+        do
+        {
+            moveDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, detectionDistance);
+
+            if (hit.collider == null || (!hit.collider.CompareTag("Wall") && !hit.collider.CompareTag("Boundary")))
+            {
+                break;
+            }
+
+            attempts++;
+        }
+        while (attempts < maxAttempts);
     }
+
+
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (Time.time - timeSinceLastDirectionChange < changeDirectionDelay)
+            return;
+
         if (collision.gameObject.CompareTag("Bullet")) {
             timesHit++;
 
@@ -77,5 +106,18 @@ public class MonsterEnemy : MonoBehaviour
                 playerRigidbody.AddForce(pushDirection * pushBackForce, ForceMode2D.Impulse);
             }
         }
+        else if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Boundary"))
+        {
+            Vector2 awayFromCollision = -collision.contacts[0].normal;
+            PickRandomDirectionAwayFromCollision(awayFromCollision);
+            timeSinceLastDirectionChange = Time.time;
+        }
     }
+    private void PickRandomDirectionAwayFromCollision(Vector2 normal)
+    {
+        // Move in the direction opposite to the collision normal with a larger random offset
+        moveDirection = -normal + new Vector2(Random.Range(-0.7f, 0.7f), Random.Range(-0.7f, 0.7f));
+        moveDirection.Normalize();
+    }
+
 }
