@@ -11,7 +11,7 @@ public class LevelExit : MonoBehaviour
         {
             if(SceneManager.GetActiveScene().buildIndex == 2)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+                SceneManager.LoadScene("Victory Screen");
             }
             else { 
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
