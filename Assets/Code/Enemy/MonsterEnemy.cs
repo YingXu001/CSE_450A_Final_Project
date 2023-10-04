@@ -93,9 +93,16 @@ public class MonsterEnemy : MonoBehaviour
         {
             // Retrieve the Health component of the submarine and decrease its health
             Health playerHealth = collision.gameObject.GetComponent<Health>();
-            if (playerHealth != null)
+            SubController player = collision.gameObject.GetComponent<SubController>();
+            if(player.HasSheild())
             {
-                playerHealth.DamagePlayer(15);
+                player.DeactivateShield();
+            } else
+            {
+                if (playerHealth != null)
+                {
+                    playerHealth.DamagePlayer(15);
+                }
             }
 
             // Push the submarine back in the opposite direction of its movement

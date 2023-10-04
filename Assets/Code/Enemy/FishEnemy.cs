@@ -55,9 +55,17 @@ public class FishEnemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Health playerHealth = collision.gameObject.GetComponent<Health>();
-            if (playerHealth != null)
+            SubController player = collision.gameObject.GetComponent<SubController>();
+            if (player.HasSheild())
             {
-                playerHealth.DamagePlayer(10);
+                player.DeactivateShield();
+            }
+            else
+            {
+                if (playerHealth != null)
+                {
+                    playerHealth.DamagePlayer(10);
+                }
             }
             Destroy(gameObject);
         }

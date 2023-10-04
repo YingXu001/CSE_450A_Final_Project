@@ -9,6 +9,7 @@ public class SubController : MonoBehaviour
     public Transform submarinePivot;
     public GameObject[] bulletPrefabs;
     private AudioSource engine_sound;
+    GameObject shield;
 
     // States Tracking
     public float moveSpeed = 50f;  // Adjust the speed as needed
@@ -24,10 +25,11 @@ public class SubController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        submarineRigidbody = GetComponent<Rigidbody2D>();
-        engine_sound = GetComponent<AudioSource>();
         // Lock the cursor to the game window to prevent it from going off-screen.
         Cursor.lockState = CursorLockMode.Locked;
+        submarineRigidbody = GetComponent<Rigidbody2D>();
+        engine_sound = GetComponent<AudioSource>();
+        shield = transform.Find("Shield").gameObject;
     }
 
     // Update is called once per frame
@@ -71,7 +73,7 @@ public class SubController : MonoBehaviour
         else
         {
             // The submarine has stopped moving, stop the sound after a delay
-            StartCoroutine(StopSoundAfterDelay(1.0f));
+            // StartCoroutine(StopSoundAfterDelay(5.0f));
         }
 
         // p for switching weapons
@@ -123,4 +125,40 @@ public class SubController : MonoBehaviour
         engine_sound.Stop();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GetAmmo getAmmo = collision.GetComponent<GetAmmo>();
+        GetHealth getHealth = collision.GetComponent<GetHealth>();
+        Health playerHealth = gameObject.GetComponent<Health>();
+        if (getAmmo)
+        {
+            numAmmo++;
+            Destroy(getAmmo.gameObject);
+        }
+        else if (getHealth)
+        {
+            if (playerHealth.curHealth < playerHealth.maxHealth)
+            {
+                playerHealth.GetHealth(15);
+            }
+            Destroy(getHealth.gameObject); ;
+        }
+    }
+
+    // activate, deactive the shield
+    public void ActivateShield()
+    {
+        shield.SetActive(true);
+    }
+
+    public void DeactivateShield()
+    {
+        shield.SetActive(false);
+    }
+
+    // get the status of the shield
+    public bool HasSheild()
+    {
+        return shield.activeSelf;
+    }
 }
