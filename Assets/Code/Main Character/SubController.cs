@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class SubController : MonoBehaviour
     public GameObject[] bulletPrefabs;
     private AudioSource engine_sound;
     GameObject shield;
+    public bool isPaused;
+    public static SubController instance;
 
     // States Tracking
     public float moveSpeed = 50f;  // Adjust the speed as needed
@@ -22,6 +25,10 @@ public class SubController : MonoBehaviour
     public AudioClip out_of_ammo_sound;
     public AudioClip laser_shot_sound;
 
+    void Awake()
+    {
+        instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +42,10 @@ public class SubController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(isPaused)
+        {
+            return;
+        }
         // switch between three levels of speed
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -92,6 +103,12 @@ public class SubController : MonoBehaviour
             }
             fireBullets();
                
+        }
+
+        // Esc for pause menu
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            InGameMenuController.instance.Show();
         }
     }
 
