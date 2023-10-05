@@ -27,5 +27,12 @@ In "Submarine Adventure", the player assumes the role of a submarine navigating 
 - Required Bullets to Destroy: 3
 - Collision Required to Destroy: 3
 
+## Resources
+- Red dots on the map can give you 1 ammo.
+- Crystal Orbs can give you 15 health.
+
+## Additons
+The submarine has a shield in the beginning which will be deactivated once hit the fish or monsters.
+
 ## Play the Game
 Dive into the adventure [here](https://yingxu.itch.io/450finalproject)!
