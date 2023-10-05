@@ -1,29 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MonsterEnemy : MonoBehaviour
 {
-    public float pushBackForce = 10f;  // Force with which the submarine is pushed back, adjust as needed
-    private int timesHit = 0;     // Counter to keep track of the number of times the monster has been attacked
+    public float pushBackForce = 10f;
+    private int timesHit = 0;
     public float moveSpeed = 2f;
-    public float detectionDistance = 2f;
-    private float changeDirectionDelay = 0.5f; // Duration for which the enemy keeps moving in the current direction after a collision
-    private float timeSinceLastDirectionChange;
-
     public Vector2 moveDirection;
-    private float randomMoveTime;
+    public float travelDistance = 3f;
+
+    private Vector2 startingPosition;
+    private Vector2 originalPosition;
+    private bool movingOutwards = true;
+    private float timeSinceLastDirectionChange;
+    private float changeDirectionDelay = 0.5f;
 
     private void Start()
     {
+        originalPosition = transform.position;
+        startingPosition = transform.position;
         PickRandomDirection();
-        timeSinceLastDirectionChange = Time.time;
     }
 
     private void Update()
     {
         Move();
-        DetectObstacle();
+        CheckBoundaries();
     }
 
     void Move()
@@ -31,53 +32,42 @@ public class MonsterEnemy : MonoBehaviour
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
     }
 
-    void DetectObstacle()
+    void CheckBoundaries()
     {
-        if (Time.time - timeSinceLastDirectionChange < changeDirectionDelay)
-            return;
-
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, detectionDistance);
-        if (hit.collider != null)
+        if (Vector2.Distance(transform.position, startingPosition) > travelDistance && movingOutwards)
         {
-            if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Boundary"))
-            {
-                Vector2 awayFromWall = transform.position - (Vector3)hit.point;
-                PickRandomDirectionAwayFromCollision(awayFromWall);
-                timeSinceLastDirectionChange = Time.time;
-            }
+            movingOutwards = false;
+            moveDirection *= -1;
         }
+        else if (Vector2.Distance(transform.position, startingPosition) < 0.1f && !movingOutwards)
+        {
+            movingOutwards = true;
+            PickRandomDirection();
+        }
+        AdjustPositionWithinRadius();
     }
 
+    private void AdjustPositionWithinRadius()
+    {
+        if (Vector2.Distance(transform.position, originalPosition) > travelDistance)
+        {
+            Vector2 directionToCenter = (originalPosition - (Vector2)transform.position).normalized;
+            transform.position = originalPosition - directionToCenter * travelDistance;
+        }
+    }
 
     private void PickRandomDirection()
     {
-        const int maxAttempts = 5;
-        int attempts = 0;
-
-        do
-        {
-            moveDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, detectionDistance);
-
-            if (hit.collider == null || (!hit.collider.CompareTag("Wall") && !hit.collider.CompareTag("Boundary")))
-            {
-                break;
-            }
-
-            attempts++;
-        }
-        while (attempts < maxAttempts);
+        moveDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
     }
-
-
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (Time.time - timeSinceLastDirectionChange < changeDirectionDelay)
             return;
 
-        if (collision.gameObject.CompareTag("Bullet")) {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
             timesHit++;
 
             if (timesHit >= 3)
@@ -87,17 +77,15 @@ public class MonsterEnemy : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
-
-        // Check if the colliding object is the submarine (tagged as Player)
         else if (collision.gameObject.CompareTag("Player"))
         {
-            // Retrieve the Health component of the submarine and decrease its health
             Health playerHealth = collision.gameObject.GetComponent<Health>();
             SubController player = collision.gameObject.GetComponent<SubController>();
-            if(player.HasSheild())
+            if (player.HasSheild())
             {
                 player.DeactivateShield();
-            } else
+            }
+            else
             {
                 if (playerHealth != null)
                 {
@@ -105,7 +93,6 @@ public class MonsterEnemy : MonoBehaviour
                 }
             }
 
-            // Push the submarine back in the opposite direction of its movement
             Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
             if (playerRigidbody != null)
             {
@@ -113,18 +100,6 @@ public class MonsterEnemy : MonoBehaviour
                 playerRigidbody.AddForce(pushDirection * pushBackForce, ForceMode2D.Impulse);
             }
         }
-        else if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Boundary"))
-        {
-            Vector2 awayFromCollision = -collision.contacts[0].normal;
-            PickRandomDirectionAwayFromCollision(awayFromCollision);
-            timeSinceLastDirectionChange = Time.time;
-        }
+        // Handle the monster's collision with other obstacles here...
     }
-    private void PickRandomDirectionAwayFromCollision(Vector2 normal)
-    {
-        // Move in the direction opposite to the collision normal with a larger random offset
-        moveDirection = -normal + new Vector2(Random.Range(-0.7f, 0.7f), Random.Range(-0.7f, 0.7f));
-        moveDirection.Normalize();
-    }
-
 }

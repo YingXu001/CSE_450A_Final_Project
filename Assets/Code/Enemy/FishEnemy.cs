@@ -1,27 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class FishEnemy : MonoBehaviour
 {
-    public float moveSpeed = 3f;  // Fish's movement speed
-    public float detectionDistance = 2f;
+    public float moveSpeed = 3f;
+    public Vector2 moveDirection;
+    public float travelDistance = 3f;
 
-    private Vector2 moveDirection;
-    private float changeDirectionDelay = 0.5f; // Duration for which the enemy keeps moving in the current direction after a collision
+    private Vector2 startingPosition;
+    private Vector2 originalPosition;
+    private bool movingOutwards = true;
     private float timeSinceLastDirectionChange;
+    private float changeDirectionDelay = 0.5f;
 
     private void Start()
     {
+        originalPosition = transform.position;
+        startingPosition = transform.position;
         PickRandomDirection();
-        timeSinceLastDirectionChange = Time.time;
     }
 
-    void Update()
+    private void Update()
     {
         Move();
-        DetectObstacle();
+        CheckBoundaries();
     }
 
     void Move()
@@ -29,29 +30,37 @@ public class FishEnemy : MonoBehaviour
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
     }
 
-    void DetectObstacle()
+    void CheckBoundaries()
     {
-        if (Time.time - timeSinceLastDirectionChange < changeDirectionDelay)
-            return;
-
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, detectionDistance);
-        if (hit.collider != null)
+        if (Vector2.Distance(transform.position, startingPosition) > travelDistance && movingOutwards)
         {
-            if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Boundary"))
-            {
-                Vector2 awayFromWall = (Vector2)transform.position - hit.point;
-                PickDirection(awayFromWall);
-                timeSinceLastDirectionChange = Time.time;
-            }
+            movingOutwards = false;
+            moveDirection *= -1; // Reverse direction
         }
+        else if (Vector2.Distance(transform.position, startingPosition) < 0.1f && !movingOutwards)
+        {
+            movingOutwards = true;
+            PickRandomDirection();
+        }
+        AdjustPositionWithinRadius();
+    }
+
+    private void AdjustPositionWithinRadius()
+    {
+        if (Vector2.Distance(transform.position, originalPosition) > travelDistance)
+        {
+            Vector2 directionToCenter = (originalPosition - (Vector2)transform.position).normalized;
+            transform.position = originalPosition - directionToCenter * travelDistance;
+        }
+    }
+
+    private void PickRandomDirection()
+    {
+        moveDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (Time.time - timeSinceLastDirectionChange < changeDirectionDelay)
-            return;
-
-        // Check for player collision
         if (collision.gameObject.CompareTag("Player"))
         {
             Health playerHealth = collision.gameObject.GetComponent<Health>();
@@ -69,28 +78,9 @@ public class FishEnemy : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        // Check for bullet collision
         else if (collision.gameObject.CompareTag("Bullet"))
         {
             Destroy(gameObject);
         }
-        // If it collides with a wall or boundary, pick a direction away from the collision
-        else if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Boundary"))
-        {
-            Vector2 awayFromCollision = -collision.contacts[0].normal;
-            PickDirection(awayFromCollision);
-            timeSinceLastDirectionChange = Time.time;
-        }
-    }
-
-    void PickRandomDirection()
-    {
-        moveDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-    }
-
-    void PickDirection(Vector2 preferredDirection)
-    {
-        moveDirection = preferredDirection + new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
-        moveDirection.Normalize();
     }
 }
