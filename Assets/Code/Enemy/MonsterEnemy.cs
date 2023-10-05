@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class MonsterEnemy : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class MonsterEnemy : MonoBehaviour
 
     private Vector2 startingPosition;
     private Vector2 originalPosition;
+    private Vector2 previousVelocity;
     private bool movingOutwards = true;
     private float timeSinceLastDirectionChange;
     private float changeDirectionDelay = 0.5f;
@@ -27,12 +29,12 @@ public class MonsterEnemy : MonoBehaviour
         CheckBoundaries();
     }
 
-    void Move()
+    private void Move()
     {
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
     }
 
-    void CheckBoundaries()
+    private void CheckBoundaries()
     {
         if (Vector2.Distance(transform.position, startingPosition) > travelDistance && movingOutwards)
         {
@@ -63,43 +65,60 @@ public class MonsterEnemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        previousVelocity = GetComponent<Rigidbody2D>().velocity;
+
         if (Time.time - timeSinceLastDirectionChange < changeDirectionDelay)
             return;
 
         if (collision.gameObject.CompareTag("Bullet"))
         {
             timesHit++;
-
-            if (timesHit >= 3)
-            {
-                Destroy(gameObject);
-            }
-
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("Player"))
         {
-            Health playerHealth = collision.gameObject.GetComponent<Health>();
-            SubController player = collision.gameObject.GetComponent<SubController>();
-            if (player.HasSheild())
-            {
-                player.DeactivateShield();
-            }
-            else
-            {
-                if (playerHealth != null)
-                {
-                    playerHealth.DamagePlayer(15);
-                }
-            }
-
-            Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (playerRigidbody != null)
-            {
-                Vector2 pushDirection = -playerRigidbody.velocity.normalized;
-                playerRigidbody.AddForce(pushDirection * pushBackForce, ForceMode2D.Impulse);
-            }
+            HandleCollisionWithPlayer(collision.gameObject);
+            StartCoroutine(ResetVelocityAfterDelay(0.1f));
         }
-        // Handle the monster's collision with other obstacles here...
+
+        CheckHitsAndDestroy();
+    }
+
+    private void HandleCollisionWithPlayer(GameObject player)
+    {
+        Health playerHealth = player.GetComponent<Health>();
+        SubController playerController = player.GetComponent<SubController>();
+
+        if (playerController.HasSheild())
+        {
+            playerController.DeactivateShield();
+        }
+        else
+        {
+            playerHealth?.DamagePlayer(20);
+        }
+
+        Rigidbody2D playerRigidbody = player.GetComponent<Rigidbody2D>();
+        if (playerRigidbody != null)
+        {
+            Vector2 pushDirection = -playerRigidbody.velocity.normalized;
+            playerRigidbody.AddForce(pushDirection * pushBackForce, ForceMode2D.Impulse);
+        }
+
+        timesHit++;
+    }
+
+    private void CheckHitsAndDestroy()
+    {
+        if (timesHit >= 3)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private IEnumerator ResetVelocityAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GetComponent<Rigidbody2D>().velocity = previousVelocity;
     }
 }

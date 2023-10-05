@@ -3,46 +3,58 @@ using UnityEngine;
 public class FishEnemy : MonoBehaviour
 {
     public float moveSpeed = 3f;
-    public Vector2 moveDirection;
     public float travelDistance = 3f;
 
-    private Vector2 startingPosition;
+    private Vector2 moveDirection;
     private Vector2 originalPosition;
     private bool movingOutwards = true;
-    private float timeSinceLastDirectionChange;
-    private float changeDirectionDelay = 0.5f;
 
     private void Start()
     {
         originalPosition = transform.position;
-        startingPosition = transform.position;
         PickRandomDirection();
     }
 
     private void Update()
     {
-        Move();
-        CheckBoundaries();
+        MoveInDirection();
+        AdjustDirectionIfNeeded();
     }
 
-    void Move()
+    private void MoveInDirection()
     {
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
     }
 
-    void CheckBoundaries()
+    private void AdjustDirectionIfNeeded()
     {
-        if (Vector2.Distance(transform.position, startingPosition) > travelDistance && movingOutwards)
+        if (IsOutsideBoundaries())
         {
             movingOutwards = false;
-            moveDirection *= -1;
+            ReverseDirection();
         }
-        else if (Vector2.Distance(transform.position, startingPosition) < 0.1f && !movingOutwards)
+        else if (IsNearStartingPosition())
         {
             movingOutwards = true;
             PickRandomDirection();
         }
+
         AdjustPositionWithinRadius();
+    }
+
+    private bool IsOutsideBoundaries()
+    {
+        return Vector2.Distance(transform.position, originalPosition) > travelDistance && movingOutwards;
+    }
+
+    private bool IsNearStartingPosition()
+    {
+        return Vector2.Distance(transform.position, originalPosition) < 0.1f && !movingOutwards;
+    }
+
+    private void ReverseDirection()
+    {
+        moveDirection *= -1;
     }
 
     private void AdjustPositionWithinRadius()
@@ -63,25 +75,27 @@ public class FishEnemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Health playerHealth = collision.gameObject.GetComponent<Health>();
-            SubController player = collision.gameObject.GetComponent<SubController>();
-            if (player.HasSheild())
-            {
-                player.DeactivateShield();
-            }
-            else
-            {
-                if (playerHealth != null)
-                {
-                    playerHealth.DamagePlayer(10);
-                }
-            }
-
+            DamagePlayerIfPossible(collision.gameObject);
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Bullet"))
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void DamagePlayerIfPossible(GameObject player)
+    {
+        Health playerHealth = player.GetComponent<Health>();
+        SubController playerController = player.GetComponent<SubController>();
+
+        if (playerController.HasSheild())
+        {
+            playerController.DeactivateShield();
+        }
+        else if (playerHealth)
+        {
+            playerHealth.DamagePlayer(10);
         }
     }
 }
