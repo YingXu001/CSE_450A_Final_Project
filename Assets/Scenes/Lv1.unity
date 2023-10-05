@@ -949,6 +949,9 @@ MonoBehaviour:
   moveSpeed: 3
   moveDirection: {x: 0, y: 0}
   travelDistance: 1
+  monsterBulletPrefab: {fileID: 5522886286557305423, guid: 0d4daabb90386df45bc345aff0aa63e0, type: 3}
+  shootInterval: 2
+  bulletSpeed: 10
 --- !u!50 &781721543
 Rigidbody2D:
   serializedVersion: 4
@@ -3041,6 +3044,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1707022498958058255, guid: 77069ca2732007346a9cd0959b72b79d, type: 3}
+      propertyPath: monsterBulletPrefab
+      value: 
+      objectReference: {fileID: 5522886286557305423, guid: 0d4daabb90386df45bc345aff0aa63e0, type: 3}
     - target: {fileID: 2932991914411029973, guid: 77069ca2732007346a9cd0959b72b79d, type: 3}
       propertyPath: m_Name
       value: Monster1

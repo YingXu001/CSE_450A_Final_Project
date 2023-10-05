@@ -552,6 +552,9 @@ MonoBehaviour:
   moveSpeed: 4
   moveDirection: {x: 0, y: 0}
   travelDistance: 1.2
+  monsterBulletPrefab: {fileID: 5522886286557305423, guid: 0d4daabb90386df45bc345aff0aa63e0, type: 3}
+  shootInterval: 2
+  bulletSpeed: 10
 --- !u!50 &120038964
 Rigidbody2D:
   serializedVersion: 4
@@ -1114,6 +1117,9 @@ MonoBehaviour:
   moveSpeed: 3
   moveDirection: {x: 0, y: 0}
   travelDistance: 0.4
+  monsterBulletPrefab: {fileID: 5522886286557305423, guid: 0d4daabb90386df45bc345aff0aa63e0, type: 3}
+  shootInterval: 2
+  bulletSpeed: 10
 --- !u!50 &781721543
 Rigidbody2D:
   serializedVersion: 4

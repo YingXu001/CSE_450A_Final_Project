@@ -16,18 +16,49 @@ public class MonsterEnemy : MonoBehaviour
     private float timeSinceLastDirectionChange;
     private float changeDirectionDelay = 0.5f;
 
+    public GameObject monsterBulletPrefab;
+    public float shootInterval = 2f;
+    public float bulletSpeed = 10f;
+
+    private float lastShotTime;
+
     private void Start()
     {
         originalPosition = transform.position;
         startingPosition = transform.position;
         PickRandomDirection();
+
+        lastShotTime = Time.time;
     }
 
     private void Update()
     {
         Move();
         CheckBoundaries();
+        HandleShooting();
     }
+
+    private void HandleShooting()
+    {
+        if (Time.time - lastShotTime >= shootInterval)
+        {
+            ShootBullet();
+            lastShotTime = Time.time;
+        }
+    }
+
+    private void ShootBullet()
+    {
+        GameObject bulletInstance = Instantiate(monsterBulletPrefab, transform.position, Quaternion.identity);
+        Rigidbody2D bulletRb = bulletInstance.GetComponent<Rigidbody2D>();
+
+        if (bulletRb)
+        {
+            Vector2 randomDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+            bulletRb.velocity = randomDirection * bulletSpeed;
+        }
+    }
+
 
     private void Move()
     {
