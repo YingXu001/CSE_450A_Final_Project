@@ -23,7 +23,7 @@ In "Submarine Adventure", the player assumes the role of a submarine navigating 
 - Collision Required to Destroy: 1
 
 ### MonsterEnemy
-- Collision Damage: Submarine loses 15 health points.
+- Collision Damage: Submarine loses 20 health points.
 - Required Bullets to Destroy: 3
 - Collision Required to Destroy: 3
 
