@@ -16,7 +16,7 @@ public class InGameMenuController : MonoBehaviour
 
     void SwitchMenu(GameObject someMenu)
     {
-        pauseMenu.SetActive(false);
+        //pauseMenu.SetActive(false);
 
         someMenu.SetActive(true);   
     }
@@ -28,6 +28,7 @@ public class InGameMenuController : MonoBehaviour
     
     public void Show()
     {
+        Cursor.lockState = CursorLockMode.None;
         ShowPauseMenu();
         gameObject.SetActive(true);
         Time.timeScale = 0;
@@ -48,6 +49,6 @@ public class InGameMenuController : MonoBehaviour
 
     public void BackToMain()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }
