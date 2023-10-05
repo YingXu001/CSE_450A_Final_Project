@@ -35,7 +35,7 @@ public class FishEnemy : MonoBehaviour
         if (Vector2.Distance(transform.position, startingPosition) > travelDistance && movingOutwards)
         {
             movingOutwards = false;
-            moveDirection *= -1; // Reverse direction
+            moveDirection *= -1;
         }
         else if (Vector2.Distance(transform.position, startingPosition) < 0.1f && !movingOutwards)
         {
@@ -76,6 +76,7 @@ public class FishEnemy : MonoBehaviour
                     playerHealth.DamagePlayer(10);
                 }
             }
+
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Bullet"))
