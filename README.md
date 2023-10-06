@@ -14,6 +14,7 @@ In "Submarine Adventure", the player assumes the role of a submarine navigating 
   - **Slow:** '1'
   - **Medium:** '2'
   - **Fast:** '3'
+- **Pause Game:** 'ESC'
 
 ## Adversaries
 
