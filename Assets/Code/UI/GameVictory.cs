@@ -8,6 +8,7 @@ public class GameVictory : MonoBehaviour
     public void ReturnToMenu()
     {
         SceneManager.LoadScene("Menu");
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void QuitGame()
