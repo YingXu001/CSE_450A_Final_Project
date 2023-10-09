@@ -9,6 +9,7 @@ TagManager:
   - Power-Cell
   - Boundary
   - Wall
+  - Shield
   layers:
   - Default
   - TransparentFX

@@ -8,6 +8,7 @@ public class SubController : MonoBehaviour
     // Outlets
     public Rigidbody2D submarineRigidbody;
     public Transform submarinePivot;
+    public Transform aimPivot;
     public GameObject[] bulletPrefabs;
     private AudioSource engine_sound;
     GameObject shield;
@@ -33,7 +34,7 @@ public class SubController : MonoBehaviour
     void Start()
     {
         // Lock the cursor to the game window to prevent it from going off-screen.
-        Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.lockState = CursorLockMode.Locked;
         submarineRigidbody = GetComponent<Rigidbody2D>();
         engine_sound = GetComponent<AudioSource>();
         shield = transform.Find("Shield").gameObject;
@@ -93,22 +94,31 @@ public class SubController : MonoBehaviour
             SwitchToNextBulletPrefab();
         }
 
-        // space for firing the bullet
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Esc for pause menu
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(numAmmo == 0)
+            InGameMenuController.instance.Show();
+        }
+
+        // Aim Toward Mouse
+        Vector3 mousePosition = Input.mousePosition;
+        Vector3 mousePositionInWorld = Camera.main.ScreenToWorldPoint(mousePosition);
+        Vector3 directionFromPlayerToMouse = mousePositionInWorld - transform.position;
+
+        float radiansToMouse = Mathf.Atan2(directionFromPlayerToMouse.y, directionFromPlayerToMouse.x);
+        float angleToMouse = radiansToMouse * Mathf.Rad2Deg;
+
+        aimPivot.rotation = Quaternion.Euler(0, 0, angleToMouse);
+
+        // space for firing the bullet
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (numAmmo == 0)
             {
                 AudioSource.PlayClipAtPoint(out_of_ammo_sound, transform.position);
                 return;
             }
             fireBullets();
-               
-        }
-
-        // Esc for pause menu
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            InGameMenuController.instance.Show();
         }
     }
 
@@ -129,9 +139,10 @@ public class SubController : MonoBehaviour
     public void fireBullets()
     {
         GameObject bulletPrefab = bulletPrefabs[currentBullet];
-        GameObject newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        GameObject newBullet = Instantiate(bulletPrefab);
         newBullet.transform.position = transform.position;
-        newBullet.transform.rotation = submarinePivot.rotation;
+        Vector3 newRotation = aimPivot.rotation.eulerAngles + new Vector3(0f, 0f, -90f);
+        newBullet.transform.rotation = Quaternion.Euler(newRotation);
         numAmmo--;
         AudioSource.PlayClipAtPoint(laser_shot_sound, transform.position);
     }
@@ -146,6 +157,7 @@ public class SubController : MonoBehaviour
     {
         GetAmmo getAmmo = collision.GetComponent<GetAmmo>();
         GetHealth getHealth = collision.GetComponent<GetHealth>();
+        GetShield getShield = collision.GetComponent<GetShield>();
         Health playerHealth = gameObject.GetComponent<Health>();
         if (getAmmo)
         {
@@ -159,6 +171,13 @@ public class SubController : MonoBehaviour
                 playerHealth.GetHealth(15);
             }
             Destroy(getHealth.gameObject); ;
+        } else if (getShield)
+        {
+            if (!HasSheild())
+            {
+                ActivateShield();
+                Destroy(getShield.gameObject);
+            }
         }
     }
 
