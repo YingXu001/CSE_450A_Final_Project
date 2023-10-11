@@ -7,6 +7,7 @@ public class InGameMenuController : MonoBehaviour
 {
     public static InGameMenuController instance;
     public GameObject pauseMenu;
+    public GameObject controlMenu;
     // Start is called before the first frame update
     void Awake()
     {
@@ -16,7 +17,8 @@ public class InGameMenuController : MonoBehaviour
 
     void SwitchMenu(GameObject someMenu)
     {
-        //pauseMenu.SetActive(false);
+        pauseMenu.SetActive(false);
+        controlMenu.SetActive(false);
 
         someMenu.SetActive(true);   
     }
@@ -24,6 +26,11 @@ public class InGameMenuController : MonoBehaviour
     public void ShowPauseMenu()
     {
         SwitchMenu(pauseMenu);
+    }
+
+    public void ShowControlMenu()
+    {
+        SwitchMenu(controlMenu);
     }
     
     public void Show()
@@ -51,4 +58,5 @@ public class InGameMenuController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
+
 }
