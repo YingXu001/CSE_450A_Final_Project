@@ -114,8 +114,13 @@ MonoBehaviour:
   moveSpeed: 150
   rotationSpeed: 30
   numAmmo: 10
+  welcome: {fileID: 8300000, guid: 029b1e6246ad7bd4291858eaba845056, type: 3}
   out_of_ammo_sound: {fileID: 8300000, guid: 28efd7a981adc2b4090efe6e7ddc5f5f, type: 3}
   laser_shot_sound: {fileID: 8300000, guid: 7a598c9b103fdd945b555e2119c9bf84, type: 3}
+  ammo_pickup: {fileID: 8300000, guid: 5ac5513fb8624b84eb474a5111221a9a, type: 3}
+  health_pickup: {fileID: 8300000, guid: 4c4642d39c4d3d54d9e845de82789114, type: 3}
+  shield_pickup: {fileID: 8300000, guid: cde570102bb269947ad6b81305561094, type: 3}
+  switch_weapons: {fileID: 8300000, guid: dfd3ea74459f9464ab11e2a8bae3b286, type: 3}
 --- !u!50 &7913768379517881020
 Rigidbody2D:
   serializedVersion: 4

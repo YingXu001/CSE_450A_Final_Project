@@ -23,8 +23,13 @@ public class SubController : MonoBehaviour
     //ammo counts
     public int numAmmo = 10;
     //sound effects
+    public AudioClip welcome;
     public AudioClip out_of_ammo_sound;
     public AudioClip laser_shot_sound;
+    public AudioClip ammo_pickup;
+    public AudioClip health_pickup;
+    public AudioClip shield_pickup;
+    public AudioClip switch_weapons;
 
     void Awake()
     {
@@ -38,6 +43,7 @@ public class SubController : MonoBehaviour
         submarineRigidbody = GetComponent<Rigidbody2D>();
         engine_sound = GetComponent<AudioSource>();
         shield = transform.Find("Shield").gameObject;
+        AudioSource.PlayClipAtPoint(welcome, transform.position);
     }
 
     // Update is called once per frame
@@ -125,6 +131,7 @@ public class SubController : MonoBehaviour
     // function for switching bullets
     private void SwitchToNextBulletPrefab()
     {
+        AudioSource.PlayClipAtPoint(switch_weapons, transform.position);
         // Increment the currentBulletPrefabIndex to switch to the next bullet prefab
         currentBullet++;
 
@@ -161,6 +168,7 @@ public class SubController : MonoBehaviour
         Health playerHealth = gameObject.GetComponent<Health>();
         if (getAmmo)
         {
+            AudioSource.PlayClipAtPoint(ammo_pickup, transform.position);
             numAmmo++;
             Destroy(getAmmo.gameObject);
         }
@@ -168,6 +176,7 @@ public class SubController : MonoBehaviour
         {
             if (playerHealth.curHealth < playerHealth.maxHealth)
             {
+                AudioSource.PlayClipAtPoint(health_pickup, transform.position);
                 playerHealth.GetHealth(15);
             }
             Destroy(getHealth.gameObject); ;
@@ -175,6 +184,7 @@ public class SubController : MonoBehaviour
         {
             if (!HasSheild())
             {
+                AudioSource.PlayClipAtPoint(shield_pickup, transform.position);
                 ActivateShield();
                 Destroy(getShield.gameObject);
             }
