@@ -22,6 +22,8 @@ public class MonsterEnemy : MonoBehaviour
 
     private float lastShotTime;
 
+    private SubController player; // get the submarine object
+
     private void Start()
     {
         originalPosition = transform.position;
@@ -29,6 +31,8 @@ public class MonsterEnemy : MonoBehaviour
         PickRandomDirection();
 
         lastShotTime = Time.time;
+
+        player = FindObjectOfType<SubController>(); // find the SubController type at the start
     }
 
     private void Update()
@@ -144,6 +148,7 @@ public class MonsterEnemy : MonoBehaviour
         if (timesHit >= 3)
         {
             Destroy(gameObject);
+            player.IncreaseEnergy(10);
         }
     }
 

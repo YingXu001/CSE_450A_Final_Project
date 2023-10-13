@@ -9,10 +9,14 @@ public class FishEnemy : MonoBehaviour
     private Vector2 originalPosition;
     private bool movingOutwards = true;
 
+    private SubController player; // get the submarine object
+
     private void Start()
     {
         originalPosition = transform.position;
         PickRandomDirection();
+
+        player = FindObjectOfType<SubController>(); // find the SubController type at the start
     }
 
     private void Update()
@@ -76,10 +80,12 @@ public class FishEnemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             DamagePlayerIfPossible(collision.gameObject);
+            player.IncreaseEnergy(20);
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Bullet"))
         {
+            player.IncreaseEnergy(20);
             Destroy(gameObject);
         }
     }

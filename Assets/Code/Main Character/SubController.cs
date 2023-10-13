@@ -15,10 +15,18 @@ public class SubController : MonoBehaviour
     public bool isPaused;
     public static SubController instance;
 
+    // Sprite for the Mecha after transformation
+    public Sprite mechaSprite;
+    private SpriteRenderer spriteRenderer;
+    private CapsuleCollider2D capsuleCollider; // the collider for submarine
+    private BoxCollider2D boxCollider; // the collider for mecha
+
     // States Tracking
     public float moveSpeed = 50f;  // Adjust the speed as needed
     public float rotationSpeed = 30f;  // Adjust the rotation speed as needed
     private int currentBullet = 1;
+    public int energyCurrent = 0;  // current energy level
+    public int energyMax = 100;  // max energy needed to transform to mecha
 
     //ammo counts
     public int numAmmo = 10;
@@ -44,6 +52,11 @@ public class SubController : MonoBehaviour
         engine_sound = GetComponent<AudioSource>();
         shield = transform.Find("Shield").gameObject;
         AudioSource.PlayClipAtPoint(welcome, transform.position);
+        
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+      
     }
 
     // Update is called once per frame
@@ -87,11 +100,6 @@ public class SubController : MonoBehaviour
             {
                 engine_sound.Play();
             }
-        }
-        else
-        {
-            // The submarine has stopped moving, stop the sound after a delay
-            // StartCoroutine(StopSoundAfterDelay(5.0f));
         }
 
         // p for switching weapons
@@ -206,5 +214,29 @@ public class SubController : MonoBehaviour
     public bool HasSheild()
     {
         return shield.activeSelf;
+    }
+
+    // increase the energy
+    public void IncreaseEnergy(int amount)
+    {
+        // Check if the current energy is less than the maximum
+        if (energyCurrent < energyMax)
+        {
+            energyCurrent += amount;
+
+            // Ensure the energy does not exceed the maximum
+            if (energyCurrent > energyMax)
+            {
+                energyCurrent = energyMax;
+            }
+
+            // When the energy reaches max, transform to Mecha
+            if(energyCurrent == energyMax)
+            {
+                spriteRenderer.sprite = mechaSprite;
+                capsuleCollider.enabled = false;
+                capsuleCollider.enabled = true;
+            }
+        }
     }
 }
