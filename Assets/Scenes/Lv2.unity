@@ -473,7 +473,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00000011920929, y: -3.5}
+  m_AnchoredPosition: {x: -0.00000017881393, y: -3.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &519420034
@@ -692,6 +692,11 @@ PrefabInstance:
 --- !u!4 &664492105 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5196679951942494892, guid: f10cedbe5ccaf854abba1526e03b463d, type: 3}
+  m_PrefabInstance: {fileID: 664492104}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &664492106 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 934551119336776625, guid: f10cedbe5ccaf854abba1526e03b463d, type: 3}
   m_PrefabInstance: {fileID: 664492104}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &684720306
@@ -2016,7 +2021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d79087fffbc64a84fbaad08fba8dcba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subMarine: {fileID: 0}
+  subMarine: {fileID: 664492106}
   ammoText: {fileID: 1009259903}
 --- !u!82 &1445073677
 AudioSource:
