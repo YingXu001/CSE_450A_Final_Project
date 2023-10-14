@@ -1,20 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MonsterEnemy : MonoBehaviour
+public class MonsterEnemy1 : MonoBehaviour
 {
     public float pushBackForce = 10f;
     private int timesHit = 0;
     public float moveSpeed = 2f;
-    public Vector2 moveDirection;
     public float travelDistance = 3f;
 
     private Vector2 startingPosition;
-    private Vector2 originalPosition;
-    private Vector2 previousVelocity;
-    private bool movingOutwards = true;
-    private float timeSinceLastDirectionChange;
-    private float changeDirectionDelay = 0.5f;
+    private bool movingRight = true;
 
     public GameObject monsterBulletPrefab;
     public float shootInterval = 2f;
@@ -26,9 +21,7 @@ public class MonsterEnemy : MonoBehaviour
 
     private void Start()
     {
-        originalPosition = transform.position;
         startingPosition = transform.position;
-        PickRandomDirection();
 
         lastShotTime = Time.time;
 
@@ -44,6 +37,7 @@ public class MonsterEnemy : MonoBehaviour
 
     private void HandleShooting()
     {
+        // Debug.Log("Checking if should shoot...");
         if (Time.time - lastShotTime >= shootInterval)
         {
             ShootBullet();
@@ -53,6 +47,7 @@ public class MonsterEnemy : MonoBehaviour
 
     private void ShootBullet()
     {
+        // Debug.Log("Shooting bullet!");
         GameObject bulletInstance = Instantiate(monsterBulletPrefab, transform.position, Quaternion.identity);
         Rigidbody2D bulletRb = bulletInstance.GetComponent<Rigidbody2D>();
 
@@ -63,48 +58,26 @@ public class MonsterEnemy : MonoBehaviour
         }
     }
 
-
     private void Move()
     {
+        Vector2 moveDirection = movingRight ? Vector2.right : Vector2.left;
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
     }
 
     private void CheckBoundaries()
     {
-        if (Vector2.Distance(transform.position, startingPosition) > travelDistance && movingOutwards)
+        if (movingRight && transform.position.x > startingPosition.x + travelDistance)
         {
-            movingOutwards = false;
-            moveDirection *= -1;
+            movingRight = false;
         }
-        else if (Vector2.Distance(transform.position, startingPosition) < 0.1f && !movingOutwards)
+        else if (!movingRight && transform.position.x < startingPosition.x - travelDistance)
         {
-            movingOutwards = true;
-            PickRandomDirection();
+            movingRight = true;
         }
-        AdjustPositionWithinRadius();
-    }
-
-    private void AdjustPositionWithinRadius()
-    {
-        if (Vector2.Distance(transform.position, originalPosition) > travelDistance)
-        {
-            Vector2 directionToCenter = (originalPosition - (Vector2)transform.position).normalized;
-            transform.position = originalPosition - directionToCenter * travelDistance;
-        }
-    }
-
-    private void PickRandomDirection()
-    {
-        moveDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        previousVelocity = GetComponent<Rigidbody2D>().velocity;
-
-        if (Time.time - timeSinceLastDirectionChange < changeDirectionDelay)
-            return;
-
         if (collision.gameObject.CompareTag("Bullet"))
         {
             timesHit++;
@@ -113,16 +86,15 @@ public class MonsterEnemy : MonoBehaviour
         else if (collision.gameObject.CompareTag("Player"))
         {
             HandleCollisionWithPlayer(collision.gameObject);
-            StartCoroutine(ResetVelocityAfterDelay(0.1f));
         }
 
         CheckHitsAndDestroy();
     }
 
-    private void HandleCollisionWithPlayer(GameObject player)
+    private void HandleCollisionWithPlayer(GameObject playerObj)
     {
-        Health playerHealth = player.GetComponent<Health>();
-        SubController playerController = player.GetComponent<SubController>();
+        Health playerHealth = playerObj.GetComponent<Health>();
+        SubController playerController = playerObj.GetComponent<SubController>();
 
         if (playerController.HasSheild())
         {
@@ -133,7 +105,7 @@ public class MonsterEnemy : MonoBehaviour
             playerHealth?.DamagePlayer(20);
         }
 
-        Rigidbody2D playerRigidbody = player.GetComponent<Rigidbody2D>();
+        Rigidbody2D playerRigidbody = playerObj.GetComponent<Rigidbody2D>();
         if (playerRigidbody != null)
         {
             Vector2 pushDirection = -playerRigidbody.velocity.normalized;
@@ -150,11 +122,5 @@ public class MonsterEnemy : MonoBehaviour
             Destroy(gameObject);
             player.IncreaseEnergy(10);
         }
-    }
-
-    private IEnumerator ResetVelocityAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        GetComponent<Rigidbody2D>().velocity = previousVelocity;
     }
 }

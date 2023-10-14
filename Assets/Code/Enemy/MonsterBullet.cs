@@ -12,9 +12,12 @@ public class MonsterBullet : MonoBehaviour
 
             if (playerHealth)
             {
-                playerHealth.DamagePlayer(5);
+                playerHealth.DamagePlayer(10);
             }
+        }
 
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Boundary") || collision.gameObject.CompareTag("Wall"))
+        {
             Destroy(gameObject);
         }
     }
