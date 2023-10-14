@@ -80,12 +80,12 @@ public class FishEnemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             DamagePlayerIfPossible(collision.gameObject);
-            player.IncreaseEnergy(20);
+            player.IncreaseEnergy(30);
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Bullet"))
         {
-            player.IncreaseEnergy(20);
+            player.IncreaseEnergy(30);
             Destroy(gameObject);
         }
     }

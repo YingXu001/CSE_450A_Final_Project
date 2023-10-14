@@ -120,7 +120,7 @@ public class MonsterEnemy1 : MonoBehaviour
         if (timesHit >= 3)
         {
             Destroy(gameObject);
-            player.IncreaseEnergy(10);
+            player.IncreaseEnergy(20);
         }
     }
 }
