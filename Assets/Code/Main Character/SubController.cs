@@ -28,6 +28,9 @@ public class SubController : MonoBehaviour
     public int energyCurrent = 0;  // current energy level
     public int energyMax = 100;  // max energy needed to transform to mecha
 
+    //player health
+    public Health playerHealth = null;
+
     //ammo counts
     public int numAmmo = 10;
     //sound effects
@@ -56,15 +59,22 @@ public class SubController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-      
+        playerHealth = gameObject.GetComponent<Health>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        //pause menu
         if(isPaused)
         {
             return;
+        }
+
+        if (playerHealth.curHealth <= 0)
+        {
+            PlayerDied();
         }
         // switch between three levels of speed
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -173,7 +183,6 @@ public class SubController : MonoBehaviour
         GetAmmo getAmmo = collision.GetComponent<GetAmmo>();
         GetHealth getHealth = collision.GetComponent<GetHealth>();
         GetShield getShield = collision.GetComponent<GetShield>();
-        Health playerHealth = gameObject.GetComponent<Health>();
         if (getAmmo)
         {
             AudioSource.PlayClipAtPoint(ammo_pickup, transform.position);
@@ -238,5 +247,11 @@ public class SubController : MonoBehaviour
                 capsuleCollider.enabled = true;
             }
         }
+    }
+
+    private void PlayerDied()
+    {
+        LevelManager.instance.GameOver();
+        gameObject.SetActive(false);
     }
 }
