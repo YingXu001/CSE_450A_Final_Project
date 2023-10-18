@@ -5023,6 +5023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subMarine: {fileID: 664492106}
   ammoText: {fileID: 1009259903}
+  DeathPanel: {fileID: 0}
 --- !u!82 &1445073677
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5652,19 +5653,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6324482819718282129, guid: 9d483980a16fa1346acebad9f4bcd961, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.6224344
+      value: 3.6628358
       objectReference: {fileID: 0}
     - target: {fileID: 6324482819718282129, guid: 9d483980a16fa1346acebad9f4bcd961, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.814671
+      value: 3.526602
       objectReference: {fileID: 0}
     - target: {fileID: 6324482819718282129, guid: 9d483980a16fa1346acebad9f4bcd961, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.514
+      value: -5.1949
       objectReference: {fileID: 0}
     - target: {fileID: 6324482819718282129, guid: 9d483980a16fa1346acebad9f4bcd961, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.2704
+      value: 7.1502
       objectReference: {fileID: 0}
     - target: {fileID: 6324482819718282129, guid: 9d483980a16fa1346acebad9f4bcd961, type: 3}
       propertyPath: m_LocalPosition.z
