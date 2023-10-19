@@ -244,7 +244,7 @@ public class SubController : MonoBehaviour
             {
                 spriteRenderer.sprite = mechaSprite;
                 capsuleCollider.enabled = false;
-                capsuleCollider.enabled = true;
+                boxCollider.enabled = true;
             }
         }
     }

@@ -111,8 +111,12 @@ MonoBehaviour:
   - {fileID: 6226824758979878250, guid: 766747fae054abe42af566de4c146efb, type: 3}
   - {fileID: 6226824758979878250, guid: 4b58378fca4406e499ec46da967a2ba1, type: 3}
   isPaused: 0
+  mechaSprite: {fileID: 21300000, guid: 2030162eef7a0e04b99fa06d08b251f6, type: 3}
   moveSpeed: 150
   rotationSpeed: 30
+  energyCurrent: 0
+  energyMax: 100
+  playerHealth: {fileID: 0}
   numAmmo: 10
   welcome: {fileID: 8300000, guid: 029b1e6246ad7bd4291858eaba845056, type: 3}
   out_of_ammo_sound: {fileID: 8300000, guid: 28efd7a981adc2b4090efe6e7ddc5f5f, type: 3}
