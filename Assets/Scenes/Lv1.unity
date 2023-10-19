@@ -1678,6 +1678,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 574021560880036274, guid: 10615429ab928f24f8cbc4787554a360, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: VictoryScreen
+      objectReference: {fileID: 0}
     - target: {fileID: 2204144602498330835, guid: 10615429ab928f24f8cbc4787554a360, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -2079,10 +2083,18 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1030616240}
+    - target: {fileID: 5331134370500167322, guid: f10cedbe5ccaf854abba1526e03b463d, type: 3}
+      propertyPath: maxHealth
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 6400389977671285050, guid: f10cedbe5ccaf854abba1526e03b463d, type: 3}
       propertyPath: mechaSprite
       value: 
       objectReference: {fileID: 21300000, guid: 2030162eef7a0e04b99fa06d08b251f6, type: 3}
+    - target: {fileID: 6400389977671285050, guid: f10cedbe5ccaf854abba1526e03b463d, type: 3}
+      propertyPath: energyCurrent
+      value: 90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
