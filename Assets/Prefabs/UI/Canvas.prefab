@@ -397,7 +397,6 @@ GameObject:
   - component: {fileID: 7617289975540706898}
   - component: {fileID: 1892096154205135520}
   - component: {fileID: 2976466502999289350}
-  - component: {fileID: 4597219417302203720}
   - component: {fileID: 3388106604043275769}
   - component: {fileID: 4099852553078278469}
   m_Layer: 5
@@ -494,21 +493,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4597219417302203720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2204144602498330835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d79087fffbc64a84fbaad08fba8dcba9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  subMarine: {fileID: 934551119336776625, guid: f10cedbe5ccaf854abba1526e03b463d, type: 3}
-  ammoText: {fileID: 2953133775817608882}
-  DeathPanel: {fileID: 1528785487243335521}
 --- !u!225 &3388106604043275769
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2329,8 +2313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8114acb46237ee64da91c397b6ddd1cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
-  playerHealth: {fileID: 0}
 --- !u!1 &6565462801955177068
 GameObject:
   m_ObjectHideFlags: 0

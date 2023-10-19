@@ -6,12 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
     public GameObject subMarine;
     public Text ammoText;
     private SubController subController_script;
     private int numAmmo;
     [SerializeField] GameObject DeathPanel;
-    
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {

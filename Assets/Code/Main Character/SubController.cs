@@ -252,6 +252,7 @@ public class SubController : MonoBehaviour
     private void PlayerDied()
     {
         LevelManager.instance.GameOver();
+        //UIManager.Instance.changeSceneByName("Menu");
         gameObject.SetActive(false);
     }
 }
