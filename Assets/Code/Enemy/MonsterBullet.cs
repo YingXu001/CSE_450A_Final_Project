@@ -12,7 +12,7 @@ public class MonsterBullet : MonoBehaviour
 
             if (playerHealth)
             {
-                playerHealth.DamagePlayer(10);
+                playerHealth.DamagePlayer(30);
             }
         }
 

@@ -164,6 +164,6 @@ MonoBehaviour:
   pushBackForce: 5
   moveSpeed: 4
   travelDistance: 3
-  monsterBulletPrefab: {fileID: 5522886286557305423, guid: 0d4daabb90386df45bc345aff0aa63e0, type: 3}
+  monsterBulletPrefab: {fileID: 2586578585092848801, guid: 270005ae3faa1314dbf97771d98832fb, type: 3}
   shootInterval: 1
   bulletSpeed: 5

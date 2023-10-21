@@ -12,16 +12,24 @@ public class MonsterEnemy2 : MonoBehaviour
     public int hitsRequiredToDestroy = 2;
     public int damageAmount = 15; // Amount of damage to the player on collision
 
+    // For shooting bullets
+    public GameObject monsterBulletPrefab;
+    public float shootInterval = 2f;
+    public float bulletSpeed = 10f;
+    private float lastShotTime;
+
     private SubController player;
 
     void Start()
     {
         player = FindObjectOfType<SubController>();
+        lastShotTime = Time.time;
     }
 
     void Update()
     {
         Move();
+        HandleShooting();
     }
 
     private void Move()
@@ -38,6 +46,27 @@ public class MonsterEnemy2 : MonoBehaviour
         }
     }
 
+    private void HandleShooting()
+    {
+        if (Time.time - lastShotTime >= shootInterval)
+        {
+            ShootBullet();
+            lastShotTime = Time.time;
+        }
+    }
+
+    private void ShootBullet()
+    {
+        GameObject bulletInstance = Instantiate(monsterBulletPrefab, transform.position, Quaternion.identity);
+        Rigidbody2D bulletRb = bulletInstance.GetComponent<Rigidbody2D>();
+
+        if (bulletRb)
+        {
+            Vector2 shootDirection = (player.transform.position - transform.position).normalized;
+            bulletRb.velocity = shootDirection * bulletSpeed;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -51,7 +80,6 @@ public class MonsterEnemy2 : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-
         else if (collision.gameObject.CompareTag("Bullet"))
         {
             timesHit++;
@@ -59,7 +87,7 @@ public class MonsterEnemy2 : MonoBehaviour
             if (timesHit >= hitsRequiredToDestroy)
             {
                 Destroy(gameObject);
-                player.IncreaseEnergy(damageAmount); // Increase player energy by the same amount of damage
+                player.IncreaseEnergy(damageAmount);
             }
 
             Destroy(collision.gameObject);
