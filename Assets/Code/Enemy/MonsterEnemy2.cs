@@ -72,12 +72,20 @@ public class MonsterEnemy2 : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Health playerHealth = collision.gameObject.GetComponent<Health>();
+            SubController playerController = collision.gameObject.GetComponent<SubController>();
 
             if (playerHealth)
             {
-                playerHealth.DamagePlayer(damageAmount);
-                player.IncreaseEnergy(damageAmount);
-                Destroy(gameObject);
+                if (playerController.HasSheild())
+                {
+                    playerController.DeactivateShield();
+                }
+                else
+                {
+                    playerHealth.DamagePlayer(damageAmount);
+                    player.IncreaseEnergy(damageAmount);
+                    Destroy(gameObject);
+                }
             }
         }
         else if (collision.gameObject.CompareTag("Bullet"))

@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class SubController : MonoBehaviour
 {
+
     // Outlets
     public Rigidbody2D submarineRigidbody;
     public Transform submarinePivot;
     public Transform aimPivot;
+    public Transform headLight;
     public GameObject[] bulletPrefabs;
     private AudioSource engine_sound;
     GameObject shield;
@@ -133,6 +135,7 @@ public class SubController : MonoBehaviour
         float angleToMouse = radiansToMouse * Mathf.Rad2Deg;
 
         aimPivot.rotation = Quaternion.Euler(0, 0, angleToMouse);
+        headLight.rotation = Quaternion.Euler(0, 0, angleToMouse-90f);
 
         // space for firing the bullet
         if (Input.GetMouseButtonDown(0))

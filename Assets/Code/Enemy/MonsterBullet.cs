@@ -9,10 +9,18 @@ public class MonsterBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Health playerHealth = collision.gameObject.GetComponent<Health>();
+            SubController playerController = collision.gameObject.GetComponent<SubController>();
 
             if (playerHealth)
             {
-                playerHealth.DamagePlayer(30);
+                if (playerController.HasSheild())
+                {
+                    playerController.DeactivateShield();
+                }
+                else
+                {
+                    playerHealth.DamagePlayer(30);
+                }
             }
         }
 
