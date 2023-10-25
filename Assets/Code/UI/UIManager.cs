@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
     public GameObject subMarine;
-    public Text ammoText;
+    public Text ammoText, speedText;
     private SubController subController_script;
     private int numAmmo;
     [SerializeField] GameObject DeathPanel;
@@ -22,12 +22,14 @@ public class UIManager : MonoBehaviour
     {
         subController_script = subMarine.GetComponent<SubController>();
         ammoText.text = "Ammo: " + 0;
+        speedText.text = "Speed: " + 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         ammoText.text = "Ammo: " + subController_script.numAmmo.ToString();
+        speedText.text = "Speed: " + subController_script.speedLevel.ToString();
     }
 
     public void ToggleDeathPanel()

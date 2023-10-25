@@ -24,6 +24,7 @@ public class SubController : MonoBehaviour
     private BoxCollider2D boxCollider; // the collider for mecha
 
     // States Tracking
+    public int speedLevel = 1;  //speed level for UI
     public float moveSpeed = 50f;  // Adjust the speed as needed
     public float rotationSpeed = 30f;  // Adjust the rotation speed as needed
     private int currentBullet = 1;
@@ -81,16 +82,19 @@ public class SubController : MonoBehaviour
         // switch between three levels of speed
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            speedLevel = 1;
             moveSpeed = 50f;
             rotationSpeed = 30f;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            speedLevel = 2;
             moveSpeed = 100f;
             rotationSpeed = 50f;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
+            speedLevel = 3;
             moveSpeed = 150f;
             rotationSpeed = 70f;
         }

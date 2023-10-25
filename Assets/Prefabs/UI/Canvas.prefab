@@ -204,8 +204,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -476, y: -342}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -503.45572, y: -342}
+  m_SizeDelta: {x: 105.0886, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6310665269143125671
 CanvasRenderer:
@@ -421,6 +421,7 @@ RectTransform:
   - {fileID: 2656313710599922505}
   - {fileID: 1352880937368828599}
   - {fileID: 2245332223069381459}
+  - {fileID: 7399925575064599564}
   - {fileID: 5620825163113958744}
   - {fileID: 5606251750107090154}
   m_Father: {fileID: 0}
@@ -1389,6 +1390,85 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &4828601092449717769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7399925575064599564}
+  - component: {fileID: 8377241843708010133}
+  - component: {fileID: 7750755389510130260}
+  m_Layer: 5
+  m_Name: Speed Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7399925575064599564
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828601092449717769}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3803616686196989272}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -394.11993, y: -342}
+  m_SizeDelta: {x: 105.9601, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8377241843708010133
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828601092449717769}
+  m_CullTransparentMesh: 1
+--- !u!114 &7750755389510130260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828601092449717769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.67058825, g: 0.19215685, b: 0.6252314, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: New Text
 --- !u!1 &5263180691919531735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1827,7 +1907,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Menu
+          m_StringArgument: VictoryScreen
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &5719231864183526480
@@ -3116,8 +3196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d79087fffbc64a84fbaad08fba8dcba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subMarine: {fileID: 934551119336776625, guid: f10cedbe5ccaf854abba1526e03b463d, type: 3}
+  subMarine: {fileID: 0}
   ammoText: {fileID: 2953133775817608882}
+  speedText: {fileID: 7750755389510130260}
   DeathPanel: {fileID: 1528785487243335521}
 --- !u!114 &3300934823644806368
 MonoBehaviour:
