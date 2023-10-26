@@ -48,6 +48,8 @@ public class UIManager : MonoBehaviour
             fadeTime -= Time.deltaTime;
             alpha -= fadeSpeed * Time.deltaTime;
             levelText.color = new Color(levelText.color.r, levelText.color.g, levelText.color.b, alpha);
+        }else if(fadeTime <= 0){
+            Destroy(levelText);
         }
     }
 
