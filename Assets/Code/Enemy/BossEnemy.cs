@@ -4,43 +4,94 @@ using UnityEngine;
 
 public class BossEnemy : MonoBehaviour
 {
-    public GameObject bulletPrefab; // Bullet prefab reference
-    public float spawnAreaSize = 5f; // Size of the area where the Boss can randomly spawn
-    public float shootInterval = 2f; // Interval time between bullet shoots
+    public float pushBackForce = 10f;
 
-    // Start is called before the first frame update
-    void Start()
+    public GameObject bossBulletPrefab;
+    public float shootInterval = 2f;
+    public float bulletSpeed = 10f;
+
+    private float lastShotTime;
+
+    private SubController player; // Get the submarine object
+
+    private void Start()
     {
-        // Position the Boss randomly within the specified range
-        Vector2 randomPosition = new Vector2(
-            Random.Range(-spawnAreaSize / 2, spawnAreaSize / 2),
-            Random.Range(-spawnAreaSize / 2, spawnAreaSize / 2)
-        );
-        transform.position = randomPosition;
+        lastShotTime = Time.time;
 
-        // Start the bullet shooting coroutine
-        StartCoroutine(ShootBullets());
-    }
+        player = FindObjectOfType<SubController>();
 
-    // This coroutine shoots bullets at regular intervals
-    IEnumerator ShootBullets()
-    {
-        while (true)
+        // Ignore collisions between the boss and its bullets
+        Collider2D bossCollider = GetComponent<Collider2D>();
+        foreach (var bullet in GameObject.FindGameObjectsWithTag("BossBullet"))
         {
-            for (int i = 0; i < 8; i++) // There are 8 directions, so loop 8 times
+            Collider2D bulletCollider = bullet.GetComponent<Collider2D>();
+            if (bulletCollider)
             {
-                float angle = i * 45f; // 360 / 8 = 45, increment by 45 degrees each time
-                FireBullet(angle);
+                Physics2D.IgnoreCollision(bossCollider, bulletCollider);
             }
-            yield return new WaitForSeconds(shootInterval); // Wait for the specified time before shooting the next round of bullets
         }
     }
 
-    // Shoot a bullet in the given angle direction
-    void FireBullet(float angle)
+    private void Update()
     {
-        Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up; // Get the direction by rotating
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, angle));
-        bullet.GetComponent<Rigidbody2D>().velocity = direction * 5f; // Here, 5f is the bullet speed. Adjust as needed.
+        HandleShooting();
+    }
+
+    private void HandleShooting()
+    {
+        if (Time.time - lastShotTime >= shootInterval)
+        {
+            ShootBulletsInAllDirections();
+            lastShotTime = Time.time;
+        }
+    }
+
+    private void ShootBulletsInAllDirections()
+    {
+        for (int i = 0; i < 8; i++) // 8 directions
+        {
+            float angle = i * 45f;
+            Vector2 spawnOffset = Quaternion.Euler(0, 0, angle) * Vector2.up * 0.5f; // Adjust the offset as needed
+            Vector2 spawnPosition = (Vector2)transform.position + spawnOffset;
+            GameObject bulletInstance = Instantiate(bossBulletPrefab, spawnPosition, Quaternion.Euler(0, 0, angle));
+
+            bulletInstance.tag = "BossBullet";  // Set the tag to "BossBullet"
+            Rigidbody2D bulletRb = bulletInstance.GetComponent<Rigidbody2D>();
+            if (bulletRb)
+            {
+                Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
+                bulletRb.velocity = direction * bulletSpeed;
+            }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            HandleCollisionWithPlayer(collision.gameObject);
+        }
+    }
+
+    private void HandleCollisionWithPlayer(GameObject playerObj)
+    {
+        Health playerHealth = playerObj.GetComponent<Health>();
+        SubController playerController = playerObj.GetComponent<SubController>();
+
+        if (playerController.HasSheild())
+        {
+            playerController.DeactivateShield();
+        }
+        else
+        {
+            playerHealth?.DamagePlayer(50); // Player takes 50 damage upon collision
+        }
+
+        Rigidbody2D playerRigidbody = playerObj.GetComponent<Rigidbody2D>();
+        if (playerRigidbody != null)
+        {
+            Vector2 pushDirection = -playerRigidbody.velocity.normalized;
+            playerRigidbody.AddForce(pushDirection * pushBackForce, ForceMode2D.Impulse);
+        }
     }
 }
