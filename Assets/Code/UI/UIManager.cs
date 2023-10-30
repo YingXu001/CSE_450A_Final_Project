@@ -11,6 +11,12 @@ public class UIManager : MonoBehaviour
     public GameObject subMarine;
     public Text ammoText, speedText;
     public float fadeTime;
+    public GameObject AmmoUI_1;
+    public GameObject AmmoUI_2;
+    public GameObject AmmoUI_3;
+
+
+
     private float alpha;
     private float fadeSpeed;
     public TextMeshProUGUI levelText;
@@ -26,7 +32,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         subController_script = subMarine.GetComponent<SubController>();
-        ammoText.text = "Ammo: " + 0;
+        ammoText.text = ": " + 0;
         speedText.text = "Speed: " + 0;
 
         //fade away level message
@@ -39,17 +45,30 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         level = SceneManager.GetActiveScene().buildIndex;
-        ammoText.text = "Ammo: " + subController_script.numAmmo.ToString();
+        ammoText.text = ": " + subController_script.numAmmo.ToString();
         speedText.text = "Speed: " + subController_script.speedLevel.ToString();
         levelText.text = "Level " + level.ToString();
 
-        if(fadeTime > 0)
+        if (fadeTime > 0)
         {
             fadeTime -= Time.deltaTime;
             alpha -= fadeSpeed * Time.deltaTime;
             levelText.color = new Color(levelText.color.r, levelText.color.g, levelText.color.b, alpha);
         }else if(fadeTime <= 0){
             Destroy(levelText);
+        }
+
+        switch (subController_script.currentBullet)
+        {
+            case 0: 
+                changeAmmoImage(AmmoUI_1);
+                break;
+            case 1:
+                changeAmmoImage(AmmoUI_2);
+                break;
+            case 2:
+                changeAmmoImage(AmmoUI_3);
+                break;
         }
     }
 
@@ -70,4 +89,15 @@ public class UIManager : MonoBehaviour
             SceneManager.LoadScene(name);
         }
     }
+
+    private void changeAmmoImage(GameObject ammoImage)
+    {
+        AmmoUI_1.SetActive(false);
+        AmmoUI_2.SetActive(false);
+        AmmoUI_3.SetActive(false);
+
+        ammoImage.SetActive(true);
+    }
+
+
 }

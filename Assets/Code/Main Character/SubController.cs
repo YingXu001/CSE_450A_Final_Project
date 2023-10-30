@@ -27,7 +27,7 @@ public class SubController : MonoBehaviour
     public int speedLevel = 1;  //speed level for UI
     public float moveSpeed = 50f;  // Adjust the speed as needed
     public float rotationSpeed = 30f;  // Adjust the rotation speed as needed
-    private int currentBullet = 1;
+    public int currentBullet = 1;
     public int energyCurrent = 0;  // current energy level
     public int energyMax = 100;  // max energy needed to transform to mecha
 
