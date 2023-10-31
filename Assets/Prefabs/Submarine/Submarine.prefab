@@ -117,8 +117,9 @@ MonoBehaviour:
   isPaused: 0
   mechaSprite: {fileID: 21300000, guid: 2030162eef7a0e04b99fa06d08b251f6, type: 3}
   speedLevel: 1
-  moveSpeed: 150
-  rotationSpeed: 30
+  moveSpeed: 100
+  rotationSpeed: 20
+  currentBullet: 1
   energyCurrent: 0
   energyMax: 100
   playerHealth: {fileID: 0}
@@ -130,6 +131,7 @@ MonoBehaviour:
   health_pickup: {fileID: 8300000, guid: 4c4642d39c4d3d54d9e845de82789114, type: 3}
   shield_pickup: {fileID: 8300000, guid: cde570102bb269947ad6b81305561094, type: 3}
   switch_weapons: {fileID: 8300000, guid: dfd3ea74459f9464ab11e2a8bae3b286, type: 3}
+  transformation_sound: {fileID: 8300000, guid: 4ed91843aca038649b8fce237f076a6a, type: 3}
 --- !u!50 &7913768379517881020
 Rigidbody2D:
   serializedVersion: 4
@@ -374,7 +376,7 @@ MonoBehaviour:
   - {x: 0.3046875, y: -0.78125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 44580
+  m_InstanceId: 40668
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.3046875, y: 0.78125, z: 0}

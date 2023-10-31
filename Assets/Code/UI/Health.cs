@@ -7,13 +7,19 @@ public class Health : MonoBehaviour
     public int curHealth = 0;
     public int maxHealth = 100;
     public HealthBar healthBar;
+    private SubController player; // get the submarine object
+
     void Start()
     {
         curHealth = maxHealth;
+        player = FindObjectOfType<SubController>();
     }
     void Update()
     {
-        
+        if(player.mechaSprite)
+        {
+            maxHealth = 200;
+        }
     }
     public void DamagePlayer(int damage)
     {

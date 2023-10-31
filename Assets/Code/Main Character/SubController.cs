@@ -25,8 +25,8 @@ public class SubController : MonoBehaviour
 
     // States Tracking
     public int speedLevel = 1;  //speed level for UI
-    public float moveSpeed = 50f;  // Adjust the speed as needed
-    public float rotationSpeed = 30f;  // Adjust the rotation speed as needed
+    public float moveSpeed = 100f;  // Adjust the speed as needed
+    public float rotationSpeed = 20f;  // Adjust the rotation speed as needed
     public int currentBullet = 1;
     public int energyCurrent = 0;  // current energy level
     public int energyMax = 100;  // max energy needed to transform to mecha
@@ -44,6 +44,7 @@ public class SubController : MonoBehaviour
     public AudioClip health_pickup;
     public AudioClip shield_pickup;
     public AudioClip switch_weapons;
+    public AudioClip transformation_sound;
 
     void Awake()
     {
@@ -79,25 +80,29 @@ public class SubController : MonoBehaviour
         {
             PlayerDied();
         }
-        // switch between three levels of speed
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if(spriteRenderer.sprite != mechaSprite)
         {
-            speedLevel = 1;
-            moveSpeed = 50f;
-            rotationSpeed = 30f;
+            // switch between three levels of speed
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                speedLevel = 1;
+                moveSpeed = 100f;
+                rotationSpeed = 20f;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                speedLevel = 2;
+                moveSpeed = 200f;
+                rotationSpeed = 30f;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                speedLevel = 3;
+                moveSpeed = 400f;
+                rotationSpeed = 40f;
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            speedLevel = 2;
-            moveSpeed = 100f;
-            rotationSpeed = 50f;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            speedLevel = 3;
-            moveSpeed = 150f;
-            rotationSpeed = 70f;
-        }
+        
 
         // W and S to move forward and backward
         float verticalInput = Input.GetAxis("Vertical");
@@ -179,12 +184,6 @@ public class SubController : MonoBehaviour
         AudioSource.PlayClipAtPoint(laser_shot_sound, transform.position);
     }
 
-    private System.Collections.IEnumerator StopSoundAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        engine_sound.Stop();
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GetAmmo getAmmo = collision.GetComponent<GetAmmo>();
@@ -193,7 +192,7 @@ public class SubController : MonoBehaviour
         if (getAmmo)
         {
             AudioSource.PlayClipAtPoint(ammo_pickup, transform.position);
-            numAmmo++;
+            numAmmo = numAmmo + 2;
             Destroy(getAmmo.gameObject);
         }
         else if (getHealth)
@@ -249,9 +248,12 @@ public class SubController : MonoBehaviour
             // When the energy reaches max, transform to Mecha
             if(energyCurrent == energyMax)
             {
+                AudioSource.PlayClipAtPoint(transformation_sound, transform.position);
                 spriteRenderer.sprite = mechaSprite;
                 capsuleCollider.enabled = false;
                 boxCollider.enabled = true;
+                moveSpeed = 100f;
+                rotationSpeed = 30f;
             }
         }
     }
