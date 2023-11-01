@@ -5,7 +5,6 @@ using UnityEngine;
 public class BossEnemy : MonoBehaviour
 {
     public float pushBackForce = 10f;
-
     public GameObject bossBulletPrefab;
     public float shootInterval = 2f;
     public float bulletSpeed = 10f;

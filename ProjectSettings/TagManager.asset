@@ -20,9 +20,9 @@ TagManager:
   - UI
   - PlayerProjectile
   - Player
-  - 
-  - 
-  - 
+  - Bullet
+  - BossBullet
+  - Enemy
   - 
   - 
   - 
