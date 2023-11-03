@@ -123,7 +123,7 @@ MonoBehaviour:
   energyCurrent: 0
   energyMax: 100
   playerHealth: {fileID: 0}
-  numAmmo: 10
+  numAmmo: 15
   welcome: {fileID: 8300000, guid: 029b1e6246ad7bd4291858eaba845056, type: 3}
   out_of_ammo_sound: {fileID: 8300000, guid: 28efd7a981adc2b4090efe6e7ddc5f5f, type: 3}
   laser_shot_sound: {fileID: 8300000, guid: 7a598c9b103fdd945b555e2119c9bf84, type: 3}
@@ -376,7 +376,7 @@ MonoBehaviour:
   - {x: 0.3046875, y: -0.78125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 40668
+  m_InstanceId: 31068
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.3046875, y: 0.78125, z: 0}

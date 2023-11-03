@@ -7,6 +7,7 @@ public class MonsterEnemy1 : MonoBehaviour
     private int timesHit = 0;
     public float moveSpeed = 2f;
     public float travelDistance = 3f;
+    private bool canMove = true;
 
     private Vector2 startingPosition;
     private bool movingRight = true;
@@ -60,20 +61,27 @@ public class MonsterEnemy1 : MonoBehaviour
 
     private void Move()
     {
-        Vector2 moveDirection = movingRight ? Vector2.right : Vector2.left;
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        if (canMove)
+        {
+            Vector2 moveDirection = movingRight ? Vector2.right : Vector2.left;
+            transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        }
     }
 
     private void CheckBoundaries()
     {
-        if (movingRight && transform.position.x > startingPosition.x + travelDistance)
+        if (canMove)
         {
-            movingRight = false;
+            if (movingRight && transform.position.x > startingPosition.x + travelDistance)
+            {
+                movingRight = false;
+            }
+            else if (!movingRight && transform.position.x < startingPosition.x - travelDistance)
+            {
+                movingRight = true;
+            }
         }
-        else if (!movingRight && transform.position.x < startingPosition.x - travelDistance)
-        {
-            movingRight = true;
-        }
+       
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -81,6 +89,11 @@ public class MonsterEnemy1 : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet"))
         {
             timesHit++;
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Freeze-Bullet"))
+        {
+            canMove = false;
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("Player"))

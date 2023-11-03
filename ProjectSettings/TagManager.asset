@@ -11,6 +11,7 @@ TagManager:
   - Wall
   - Shield
   - BossBullet
+  - Freeze-Bullet
   layers:
   - Default
   - TransparentFX

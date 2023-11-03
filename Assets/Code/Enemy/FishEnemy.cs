@@ -4,6 +4,7 @@ public class FishEnemy : MonoBehaviour
 {
     public float moveSpeed = 3f;
     public float travelDistance = 3f;
+    private bool canMove = true;
 
     private Vector2 moveDirection;
     private Vector2 originalPosition;
@@ -27,7 +28,10 @@ public class FishEnemy : MonoBehaviour
 
     private void MoveInDirection()
     {
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        if (canMove)
+        {
+            transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        }
     }
 
     private void AdjustDirectionIfNeeded()
@@ -87,6 +91,12 @@ public class FishEnemy : MonoBehaviour
         {
             player.IncreaseEnergy(30);
             Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Freeze-Bullet"))
+        {
+            canMove = false;
+            Destroy(collision.gameObject);
+            print("freeze!");
         }
     }
 

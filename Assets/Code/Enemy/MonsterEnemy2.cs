@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MonsterEnemy2 : MonoBehaviour
 {
+    private bool canMove = true;
     public float moveSpeed = 2f;
     private Vector2 moveDirection = Vector2.up;
     public float maxY = 3f;
@@ -34,16 +35,20 @@ public class MonsterEnemy2 : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        if (canMove)
+        {
+            transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
 
-        if (moveDirection == Vector2.up && transform.position.y >= maxY)
-        {
-            moveDirection = Vector2.down;
+            if (moveDirection == Vector2.up && transform.position.y >= maxY)
+            {
+                moveDirection = Vector2.down;
+            }
+            else if (moveDirection == Vector2.down && transform.position.y <= minY)
+            {
+                moveDirection = Vector2.up;
+            }
         }
-        else if (moveDirection == Vector2.down && transform.position.y <= minY)
-        {
-            moveDirection = Vector2.up;
-        }
+        
     }
 
     private void HandleShooting()
@@ -98,6 +103,11 @@ public class MonsterEnemy2 : MonoBehaviour
                 player.IncreaseEnergy(damageAmount);
             }
 
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Freeze-Bullet"))
+        {
+            canMove = false;
             Destroy(collision.gameObject);
         }
     }
