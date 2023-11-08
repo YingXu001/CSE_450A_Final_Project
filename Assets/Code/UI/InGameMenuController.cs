@@ -8,6 +8,7 @@ public class InGameMenuController : MonoBehaviour
     public static InGameMenuController instance;
     public GameObject pauseMenu;
     public GameObject controlMenu;
+    public GameObject optionMenu;
     // Start is called before the first frame update
     void Awake()
     {
@@ -19,10 +20,15 @@ public class InGameMenuController : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         controlMenu.SetActive(false);
+        optionMenu.SetActive(false);
 
         someMenu.SetActive(true);   
     }
 
+    public void ShowOptionMenu()
+    {
+        SwitchMenu(optionMenu);
+    }
     public void ShowPauseMenu()
     {
         SwitchMenu(pauseMenu);

@@ -4,17 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Audio;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    public GameObject subMarine;
     public Text ammoText, speedText;
     public float fadeTime;
     public GameObject AmmoUI_1;
     public GameObject AmmoUI_2;
     public GameObject AmmoUI_3;
-
+    public AudioMixer audioMixer;
 
 
     private float alpha;
@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        subController_script = subMarine.GetComponent<SubController>();
+        subController_script = GameObject.FindGameObjectWithTag("Player").GetComponent<SubController>();
         ammoText.text = ": " + 0;
         speedText.text = "Speed: " + 0;
 
@@ -97,6 +97,16 @@ public class UIManager : MonoBehaviour
         AmmoUI_3.SetActive(false);
 
         ammoImage.SetActive(true);
+    }
+
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("volume", volume);
+    }
+
+    public void SetFullScreen(bool isFullScreen)
+    {
+        Screen.fullScreen = isFullScreen;
     }
 
 

@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    //health bar
     public int curHealth = 0;
     public int maxHealth = 100;
     public HealthBar healthBar;
+    public EnergyBar energyBar;
+
     private SubController player; // get the submarine object
 
     void Start()
@@ -16,10 +19,12 @@ public class Health : MonoBehaviour
     }
     void Update()
     {
+        
         if(player.mechaSprite)
         {
             maxHealth = 200;
         }
+        energyBar.SetEnergy(player.energyCurrent);
     }
     public void DamagePlayer(int damage)
     {

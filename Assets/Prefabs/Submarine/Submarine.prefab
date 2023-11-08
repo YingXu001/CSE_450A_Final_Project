@@ -174,6 +174,7 @@ MonoBehaviour:
   curHealth: 0
   maxHealth: 100
   healthBar: {fileID: 0}
+  energyBar: {fileID: 0}
 --- !u!82 &1476838251263382665
 AudioSource:
   m_ObjectHideFlags: 0
@@ -183,7 +184,7 @@ AudioSource:
   m_GameObject: {fileID: 934551119336776625}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: d441b1e02a69bac4eb4173b445e13c70, type: 2}
   m_audioClip: {fileID: 8300000, guid: 113d4c9505b283d4cbc8da55f790de7b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.3
@@ -376,7 +377,7 @@ MonoBehaviour:
   - {x: 0.3046875, y: -0.78125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 31068
+  m_InstanceId: -149706
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.3046875, y: 0.78125, z: 0}
@@ -558,7 +559,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.473
-  m_Color: {r: 0.08627451, g: 0.8980392, b: 0.19445726, a: 1}
+  m_Color: {r: 0.11563479, g: 0.8980392, b: 0.08627451, a: 1}
   m_Intensity: 3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -579,8 +580,8 @@ MonoBehaviour:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 48.6
-  m_PointLightOuterAngle: 66.24
-  m_PointLightInnerRadius: 3.098323
+  m_PointLightOuterAngle: 65.97612
+  m_PointLightInnerRadius: 3
   m_PointLightOuterRadius: 3.4980557
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
