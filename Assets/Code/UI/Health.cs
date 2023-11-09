@@ -19,10 +19,10 @@ public class Health : MonoBehaviour
     }
     void Update()
     {
-        
-        if(player.mechaSprite)
+        if(player.mechaMode == true)
         {
             maxHealth = 200;
+            curHealth = maxHealth;
         }
         energyBar.SetEnergy(player.energyCurrent);
     }

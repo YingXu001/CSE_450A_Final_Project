@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8511ea69d7eeb804bb4e1fd710a7c32a
+guid: 6f0ce61247f27db47ac1d2adc25b11c4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 500
+  spritePixelsToUnits: 120
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -123,232 +123,295 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Submarine_0
+      name: spaaaaace_2
       rect:
         serializedVersion: 2
-        x: 18
-        y: 611
-        width: 209
-        height: 377
+        x: 110
+        y: 71
+        width: 41
+        height: 45
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a2016631d524204d88a60f24f984a1a
-      internalID: -240863576
+      spriteID: 7fc1706eba665544d93365f7a53a24f3
+      internalID: -791139261
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Submarine_1
+      name: spaaaaace_3
       rect:
         serializedVersion: 2
-        x: 264
-        y: 578
-        width: 209
-        height: 413
-      alignment: 9
-      pivot: {x: 0.5, y: 0.55}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4e370cf96748ed84a9534d640ae182e5
-      internalID: -272387904
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Submarine_2
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 568
-        width: 209
-        height: 423
-      alignment: 9
-      pivot: {x: 0.5, y: 0.55}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9f0166fcb5ba4dc489c91869ce018d01
-      internalID: 1166048522
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Submarine_3
-      rect:
-        serializedVersion: 2
-        x: 751
-        y: 575
-        width: 209
-        height: 413
-      alignment: 9
-      pivot: {x: 0.5, y: 0.55}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fc4021ab9b5fd864aa05b12d066cd5e6
-      internalID: 159430808
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Submarine_4
-      rect:
-        serializedVersion: 2
-        x: 125
-        y: 597
-        width: 6
-        height: 5
+        x: 173
+        y: 103
+        width: 7
+        height: 7
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b6e9bcb94c16d74c97afc45d29e1573
-      internalID: 1482082184
+      spriteID: 9947308313f28264684082a7eeb5be50
+      internalID: -2059252972
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Submarine_5
+      name: spaaaaace_4
       rect:
         serializedVersion: 2
-        x: 22
-        y: 320
-        width: 267
-        height: 224
+        x: 169
+        y: 79
+        width: 15
+        height: 15
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: abfe86dce755882469cee67ba18a7c63
-      internalID: 1319900056
+      spriteID: e021cfa4f64fc6442935ac11c65e656a
+      internalID: 106388167
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Submarine_6
+      name: spaaaaace_5
       rect:
         serializedVersion: 2
-        x: 352
-        y: 287
-        width: 267
-        height: 264
-      alignment: 9
-      pivot: {x: 0.5, y: 0.6}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dfd0248548d36f540bd274474e2abc71
-      internalID: -104807919
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Submarine_7
-      rect:
-        serializedVersion: 2
-        x: 673
-        y: 287
-        width: 267
-        height: 264
-      alignment: 9
-      pivot: {x: 0.5, y: 0.6}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5003ec40be22f7b4e8452bf6c45355e4
-      internalID: 1702604272
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Submarine_8
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 31
-        width: 163
-        height: 228
+        x: 104
+        y: 12
+        width: 49
+        height: 53
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2199785a18ce6794a81cfa9c991690c4
-      internalID: 1461321016
+      spriteID: cae81941c59204b449d55027f087e42b
+      internalID: 993000299
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Submarine_9
+      name: spaaaaace_6
       rect:
         serializedVersion: 2
-        x: 313
-        y: 32
-        width: 284
-        height: 224
+        x: 166
+        y: 50
+        width: 21
+        height: 21
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3015ad3bbf34c764c92e289ca5b5cf11
-      internalID: 225670954
+      spriteID: 531b10bd7edc4cc4092fdf3574890e8f
+      internalID: -1563411535
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Submarine_10
+      name: spaaaaace_8
       rect:
         serializedVersion: 2
-        x: 674
-        y: 158
-        width: 48
-        height: 64
+        x: 7
+        y: 38
+        width: 26
+        height: 18
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e6fea855283c7540a054b3732005495
-      internalID: -1922028096
+      spriteID: e0628ae0ab6d54049832247339cd109a
+      internalID: 116702210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spaaaaace_9
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 25
+        width: 31
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10dd22769c3060e4f82998eeb0b832a0
+      internalID: 2052667956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spaaaaace_11
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 4
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 886684cb2f69ab64eb7039672b973431
+      internalID: -57294002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spaaaaace_12
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 466b738c6d8ad204fac35ed90a96e39b
+      internalID: -1918636079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spaaaaace_13
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 3
+        width: 35
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d11986c7d7ee994e8e73fc91e5883f4
+      internalID: -1844918021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: torpedo
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 56
+        width: 14
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 094cdacd3cf7bbe4cbeadf8064215305
+      internalID: 1169253129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: torpedo1
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 48
+        width: 12
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e5adc3d2e2ea504081f23c847f27ccb
+      internalID: 70387884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spaaaaace_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 66
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19ee7f64986b22742a707ddaad0344f3
+      internalID: -765667980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spaaaaace_1
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 61
+        width: 53
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a4d51c2f5626144c96b8b1c63063d62
+      internalID: 1320918558
       vertices: []
       indices: 
       edges: []
@@ -364,17 +427,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Submarine_0: -240863576
-      Submarine_1: -272387904
-      Submarine_10: -1922028096
-      Submarine_2: 1166048522
-      Submarine_3: 159430808
-      Submarine_4: 1482082184
-      Submarine_5: 1319900056
-      Submarine_6: -104807919
-      Submarine_7: 1702604272
-      Submarine_8: 1461321016
-      Submarine_9: 225670954
+      spaaaaace_0: -765667980
+      spaaaaace_1: 1320918558
+      spaaaaace_11: -57294002
+      spaaaaace_12: -1918636079
+      spaaaaace_13: -1844918021
+      spaaaaace_2: -791139261
+      spaaaaace_3: -2059252972
+      spaaaaace_4: 106388167
+      spaaaaace_5: 993000299
+      spaaaaace_6: -1563411535
+      spaaaaace_8: 116702210
+      spaaaaace_9: 2052667956
+      torpedo: 1169253129
+      torpedo1: 70387884
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -12,6 +12,7 @@ TagManager:
   - Shield
   - BossBullet
   - Freeze-Bullet
+  - Enemy
   layers:
   - Default
   - TransparentFX

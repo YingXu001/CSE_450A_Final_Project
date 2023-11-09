@@ -11,11 +11,14 @@ public class SubController : MonoBehaviour
     public Transform submarinePivot;
     public Transform aimPivot;
     public Transform headLight;
+    public Transform gun;
     public GameObject[] bulletPrefabs;
+    public GameObject torpedoPrefab;
     private AudioSource engine_sound;
     GameObject shield;
     public bool isPaused;
     public static SubController instance;
+    public Animator _animator;
 
     // Sprite for the Mecha after transformation
     public Sprite mechaSprite;
@@ -30,12 +33,14 @@ public class SubController : MonoBehaviour
     public int currentBullet = 1;
     public int energyCurrent = 0;  // current energy level
     public int energyMax = 100;  // max energy needed to transform to mecha
+    public bool mechaMode = false;
 
     //player health
     public Health playerHealth = null;
 
     //ammo counts
-    public int numAmmo = 10;
+    public int numAmmo = 15;
+    public int numTorpedo = 5;
     //sound effects
     public AudioClip welcome;
     public AudioClip out_of_ammo_sound;
@@ -45,6 +50,7 @@ public class SubController : MonoBehaviour
     public AudioClip shield_pickup;
     public AudioClip switch_weapons;
     public AudioClip transformation_sound;
+    public AudioClip fire_torpedo;
 
     void Awake()
     {
@@ -64,12 +70,16 @@ public class SubController : MonoBehaviour
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         playerHealth = gameObject.GetComponent<Health>();
+        _animator = GetComponent<Animator>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        float movementSpeed = submarineRigidbody.velocity.sqrMagnitude;
+        _animator.SetFloat("speed", movementSpeed);
+
         //pause menu
         if(isPaused)
         {
@@ -80,7 +90,7 @@ public class SubController : MonoBehaviour
         {
             PlayerDied();
         }
-        if(spriteRenderer.sprite != mechaSprite)
+        if(mechaMode == false)
         {
             // switch between three levels of speed
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -145,6 +155,7 @@ public class SubController : MonoBehaviour
 
         aimPivot.rotation = Quaternion.Euler(0, 0, angleToMouse);
         headLight.rotation = Quaternion.Euler(0, 0, angleToMouse-90f);
+        gun.rotation = Quaternion.Euler(0, 0, angleToMouse-90f);
 
         // space for firing the bullet
         if (Input.GetMouseButtonDown(0))
@@ -155,6 +166,16 @@ public class SubController : MonoBehaviour
                 return;
             }
             fireBullets();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            if (numTorpedo == 0)
+            {
+                AudioSource.PlayClipAtPoint(out_of_ammo_sound, transform.position);
+                return;
+            }
+            fireTorpedo();
         }
     }
 
@@ -182,6 +203,16 @@ public class SubController : MonoBehaviour
         newBullet.transform.rotation = Quaternion.Euler(newRotation);
         numAmmo--;
         AudioSource.PlayClipAtPoint(laser_shot_sound, transform.position);
+    }
+
+    public void fireTorpedo()
+    {
+        GameObject newBullet = Instantiate(torpedoPrefab);
+        newBullet.transform.position = transform.position;
+        Vector3 newRotation = aimPivot.rotation.eulerAngles + new Vector3(0f, 0f, -90f);
+        newBullet.transform.rotation = Quaternion.Euler(newRotation);
+        numTorpedo--;
+        AudioSource.PlayClipAtPoint(fire_torpedo, transform.position);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -248,6 +279,8 @@ public class SubController : MonoBehaviour
             // When the energy reaches max, transform to Mecha
             if(energyCurrent == energyMax)
             {
+                mechaMode = true;
+                _animator.SetBool("transform", true);
                 AudioSource.PlayClipAtPoint(transformation_sound, transform.position);
                 spriteRenderer.sprite = mechaSprite;
                 capsuleCollider.enabled = false;
