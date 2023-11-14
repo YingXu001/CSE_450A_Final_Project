@@ -11,6 +11,10 @@ public class FinalBossEnemy : MonoBehaviour
     public int bossHealth = 100; // Health of the boss
     private Vector2 screenBounds;
     private float lastTeleportTime = 0;
+    public GameObject smallEnemyPrefab; // The prefab for the small enemies
+    public float enemySpawnInterval = 3.0f; // Interval for spawning small enemies
+    private float lastEnemySpawnTime = 0;
+    private bool isSpawningEnemies = false;
 
     void Start()
     {
@@ -26,6 +30,25 @@ public class FinalBossEnemy : MonoBehaviour
         {
             Teleport();
             lastTeleportTime = Time.time;
+        }
+        // Check if boss health is half or below and start spawning enemies
+        if (bossHealth <= bossHealth / 2 && !isSpawningEnemies)
+        {
+            isSpawningEnemies = true;
+            StartCoroutine(SpawnSmallEnemies());
+        }
+    }
+
+    IEnumerator SpawnSmallEnemies()
+    {
+        while (isSpawningEnemies)
+        {
+            // Wait for the specified interval
+            yield return new WaitForSeconds(enemySpawnInterval);
+
+            // Spawn a small enemy at a random position
+            Vector2 spawnPosition = new Vector2(Random.Range(-screenBounds.x, screenBounds.x), Random.Range(-screenBounds.y, screenBounds.y));
+            Instantiate(smallEnemyPrefab, spawnPosition, Quaternion.identity);
         }
     }
 
@@ -80,6 +103,8 @@ public class FinalBossEnemy : MonoBehaviour
         bossHealth -= damage;
         if (bossHealth <= 0)
         {
+            // Stop spawning enemies if the boss is defeated
+            isSpawningEnemies = false;
             // Boss is defeated
             Destroy(gameObject);
         }
