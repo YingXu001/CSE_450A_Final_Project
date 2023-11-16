@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class FinalBossEnemy : MonoBehaviour
 {
@@ -16,6 +17,21 @@ public class FinalBossEnemy : MonoBehaviour
     public float enemySpawnInterval = 3.0f; // Interval for spawning small enemies
     private float lastEnemySpawnTime = 0;
     private bool isSpawningEnemies = false;
+
+    public GameObject exit;
+    public Transform exitSpawn;
+
+    //Outlets
+    public Transform[] ammoSpawns;
+    public Transform shieldSpawn;
+    public Transform powerSpawn;
+
+
+    public GameObject ammo;
+    public GameObject shield;
+    public GameObject power;
+
+    public int healthThreshold;
 
     void Start()
     {
@@ -108,12 +124,31 @@ public class FinalBossEnemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         bossHealth -= damage;
+        
         if (bossHealth <= 0)
         {
             // Stop spawning enemies if the boss is defeated
             isSpawningEnemies = false;
             // Boss is defeated
             Destroy(gameObject);
+            Instantiate(exit, exitSpawn.position, Quaternion.identity);
         }
+        else if (bossHealth <= healthThreshold)
+        {
+            spawnResources();
+            healthThreshold = 0;
+        }
+    }
+    void spawnResources()
+    {
+
+        foreach (Transform t in ammoSpawns)
+        {
+            Instantiate(ammo, t.position, Quaternion.identity);
+        }
+
+        Instantiate(shield, shieldSpawn.position, Quaternion.identity);
+        Instantiate(power, powerSpawn.position, Quaternion.identity);
+
     }
 }

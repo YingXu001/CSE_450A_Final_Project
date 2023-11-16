@@ -38,6 +38,9 @@ public class GameController : MonoBehaviour
             spawnResources();
             healthThreshold = 0;
         }
+        if(finalBoss.GetComponent<FinalBossEnemy>() == null) {
+            Instantiate(exit, exitSpawn.position, Quaternion.identity);
+        }
     }
 
     void spawnResources()
