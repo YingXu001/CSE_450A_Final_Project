@@ -9,6 +9,7 @@ public class FinalBossEnemy : MonoBehaviour
     public float shootDelay = 0.5f; // Delay before shooting bullets
     public float bulletSpeed = 10f; // Speed of the bullets
     public int bossHealth = 100; // Health of the boss
+    private int initialBossHealth = 100;
     private Vector2 screenBounds;
     private float lastTeleportTime = 0;
     public GameObject smallEnemyPrefab; // The prefab for the small enemies
@@ -18,6 +19,7 @@ public class FinalBossEnemy : MonoBehaviour
 
     void Start()
     {
+        bossHealth = initialBossHealth;
         // Get the screen bounds for random teleportation
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         Teleport();
@@ -32,7 +34,7 @@ public class FinalBossEnemy : MonoBehaviour
             lastTeleportTime = Time.time;
         }
         // Check if boss health is half or below and start spawning enemies
-        if (bossHealth <= bossHealth / 2 && !isSpawningEnemies)
+        if (bossHealth <= initialBossHealth / 2 && !isSpawningEnemies)
         {
             isSpawningEnemies = true;
             StartCoroutine(SpawnSmallEnemies());
