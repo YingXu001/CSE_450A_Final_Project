@@ -96,6 +96,11 @@ public class FinalBossEnemy : MonoBehaviour
                 playerHealth.DamagePlayer(50);
             }
         }
+        else if (collision.gameObject.CompareTag("Bullet"))
+        {
+            TakeDamage(30);
+        }
+        
     }
 
     public void TakeDamage(int damage)
