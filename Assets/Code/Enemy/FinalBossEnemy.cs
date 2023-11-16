@@ -5,12 +5,14 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class FinalBossEnemy : MonoBehaviour
 {
+    public FinalBossEnemy instance;
+
     public GameObject bulletPrefab; // The prefab for the bullets
     public float teleportTime = 5.0f; // Time interval for teleportation
     public float shootDelay = 0.5f; // Delay before shooting bullets
     public float bulletSpeed = 10f; // Speed of the bullets
     public int bossHealth = 100; // Health of the boss
-    private int initialBossHealth = 100;
+    public int maxBossHealth = 100;
     private Vector2 screenBounds;
     private float lastTeleportTime = 0;
     public GameObject smallEnemyPrefab; // The prefab for the small enemies
@@ -33,9 +35,13 @@ public class FinalBossEnemy : MonoBehaviour
 
     public int healthThreshold;
 
+    void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
-        bossHealth = initialBossHealth;
+        bossHealth = maxBossHealth;
         // Get the screen bounds for random teleportation
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         Teleport();
@@ -50,7 +56,7 @@ public class FinalBossEnemy : MonoBehaviour
             lastTeleportTime = Time.time;
         }
         // Check if boss health is half or below and start spawning enemies
-        if (bossHealth <= initialBossHealth / 2 && !isSpawningEnemies)
+        if (bossHealth <= maxBossHealth / 2 && !isSpawningEnemies)
         {
             isSpawningEnemies = true;
             StartCoroutine(SpawnSmallEnemies());

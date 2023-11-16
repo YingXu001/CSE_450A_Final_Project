@@ -13,6 +13,7 @@ public class BossEnemy : MonoBehaviour
 
     private SubController player; // Get the submarine object
 
+    
     private void Start()
     {
         lastShotTime = Time.time;
