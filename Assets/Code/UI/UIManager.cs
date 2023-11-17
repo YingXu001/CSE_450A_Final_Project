@@ -44,7 +44,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        level = SceneManager.GetActiveScene().buildIndex;
+        level = SceneManager.GetActiveScene().buildIndex-1;
         ammoText.text = ": " + subController_script.numAmmo.ToString();
         speedText.text = "Speed: " + subController_script.speedLevel.ToString();
         levelText.text = "Level " + level.ToString();

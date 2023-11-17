@@ -17,7 +17,7 @@ public class FinalBossEnemy : MonoBehaviour
     private float lastTeleportTime = 0;
     public GameObject smallEnemyPrefab; // The prefab for the small enemies
     public float enemySpawnInterval = 3.0f; // Interval for spawning small enemies
-    private float lastEnemySpawnTime = 0;
+    //private float lastEnemySpawnTime = 0;
     private bool isSpawningEnemies = false;
 
     public GameObject exit;
