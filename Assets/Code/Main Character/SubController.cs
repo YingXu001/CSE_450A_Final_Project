@@ -22,6 +22,7 @@ public class SubController : MonoBehaviour
 
     // Sprite for the Mecha after transformation
     public Sprite mechaSprite;
+    public Sprite submarineSprite;
     private SpriteRenderer spriteRenderer;
     private CapsuleCollider2D capsuleCollider; // the collider for submarine
     private BoxCollider2D boxCollider; // the collider for mecha
@@ -51,6 +52,8 @@ public class SubController : MonoBehaviour
     public AudioClip switch_weapons;
     public AudioClip transformation_sound;
     public AudioClip fire_torpedo;
+    public AudioClip shield_down;
+    public AudioClip game_over;
 
     void Awake()
     {
@@ -88,6 +91,7 @@ public class SubController : MonoBehaviour
 
         if (playerHealth.curHealth <= 0)
         {
+            AudioSource.PlayClipAtPoint(game_over, transform.position);
             PlayerDied();
         }
         if(mechaMode == false)
@@ -149,7 +153,7 @@ public class SubController : MonoBehaviour
         }
 
         // p for switching weapons
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetMouseButtonDown(1))
         {
             SwitchToNextBulletPrefab();
         }
@@ -284,6 +288,7 @@ public class SubController : MonoBehaviour
 
     public void DeactivateShield()
     {
+        AudioSource.PlayClipAtPoint(shield_down, transform.position);
         shield.SetActive(false);
     }
 
@@ -320,6 +325,31 @@ public class SubController : MonoBehaviour
                 moveSpeed = 100f;
                 rotationSpeed = 30f;
                 numAmmo = 30;
+                playerHealth.maxHealth = 200;
+                playerHealth.curHealth = playerHealth.maxHealth;
+                playerHealth.healthBar.SetHealth(playerHealth.curHealth);
+
+            }
+        }
+    }
+
+    public void DecreaseEnergy(int amount)
+    {
+        // Check if the current energy is less than the maximum
+        if (energyCurrent <= energyMax && energyCurrent > 0)
+        {
+            energyCurrent -= amount;
+
+            // Ensure the energy does not exceed the maximum
+            if (energyCurrent < 0)
+            {
+                energyCurrent = 0;
+            }
+
+            // When the energy reaches max, transform to Mecha
+            if (energyCurrent == 0)
+            {
+                StartCoroutine(WaitToTransform());
             }
         }
     }
@@ -333,7 +363,25 @@ public class SubController : MonoBehaviour
 
     IEnumerator UpdateAmmo()
     {
-        yield return new WaitForSeconds(10f); // Wait for 5 seconds
+        yield return new WaitForSeconds(10f); // Wait for 10 seconds
         numAmmo = 15; // Set numAmmo to 15 after 5 seconds
+    }
+    IEnumerator WaitToTransform()
+    {
+        yield return new WaitForSeconds(5f); // Wait for 5 seconds
+        mechaMode = false;
+        _animator.SetBool("transform", false);
+        _animator.SetBool("backToSub", true);
+        AudioSource.PlayClipAtPoint(transformation_sound, transform.position);
+        spriteRenderer.sprite = submarineSprite;
+        capsuleCollider.enabled = true;
+        boxCollider.enabled = false;
+        speedLevel = 2;
+        moveSpeed = 200f;
+        rotationSpeed = 30f;
+        numAmmo = 15;
+        playerHealth.maxHealth = 100;
+        playerHealth.curHealth = playerHealth.maxHealth;
+        playerHealth.healthBar.SetHealth(playerHealth.curHealth);
     }
 }
