@@ -109,10 +109,25 @@ public class SubController : MonoBehaviour
             {
                 speedLevel = 3;
                 moveSpeed = 400f;
-                rotationSpeed = 40f;
+                rotationSpeed = 35f;
+            }
+        } 
+        else
+        {
+            // Mecha mode speed switching
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                speedLevel = 1;
+                moveSpeed = 100f;
+                rotationSpeed = 30f;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                speedLevel = 2;
+                moveSpeed = 200f;
+                rotationSpeed = 35f;
             }
         }
-        
 
         // W and S to move forward and backward
         float verticalInput = Input.GetAxis("Vertical");
@@ -220,11 +235,27 @@ public class SubController : MonoBehaviour
         GetAmmo getAmmo = collision.GetComponent<GetAmmo>();
         GetHealth getHealth = collision.GetComponent<GetHealth>();
         GetShield getShield = collision.GetComponent<GetShield>();
+        InfiniteAmmo infiniteAmmo = collision.GetComponent<InfiniteAmmo>();
+        TorpedoPickup torpedoPickup = collision.GetComponent<TorpedoPickup>();
+
         if (getAmmo)
         {
             AudioSource.PlayClipAtPoint(ammo_pickup, transform.position);
             numAmmo = numAmmo + 2;
             Destroy(getAmmo.gameObject);
+        }
+        if (torpedoPickup)
+        {
+            AudioSource.PlayClipAtPoint(ammo_pickup, transform.position);
+            numTorpedo = numTorpedo + 5;
+            Destroy(torpedoPickup.gameObject);
+        }
+        if (infiniteAmmo)
+        {
+            AudioSource.PlayClipAtPoint(ammo_pickup, transform.position);
+            numAmmo = numAmmo + 1000;
+            Destroy(infiniteAmmo.gameObject);
+            StartCoroutine(UpdateAmmo());
         }
         else if (getHealth)
         {
@@ -285,8 +316,10 @@ public class SubController : MonoBehaviour
                 spriteRenderer.sprite = mechaSprite;
                 capsuleCollider.enabled = false;
                 boxCollider.enabled = true;
+                speedLevel = 1;
                 moveSpeed = 100f;
                 rotationSpeed = 30f;
+                numAmmo = 30;
             }
         }
     }
@@ -296,5 +329,11 @@ public class SubController : MonoBehaviour
         LevelManager.instance.GameOver();
         //UIManager.Instance.changeSceneByName("Menu");
         gameObject.SetActive(false);
+    }
+
+    IEnumerator UpdateAmmo()
+    {
+        yield return new WaitForSeconds(10f); // Wait for 5 seconds
+        numAmmo = 15; // Set numAmmo to 15 after 5 seconds
     }
 }

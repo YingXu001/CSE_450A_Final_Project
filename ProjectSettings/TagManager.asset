@@ -13,6 +13,8 @@ TagManager:
   - BossBullet
   - Freeze-Bullet
   - Enemy
+  - Infinite-Ammo
+  - Torpedo-Pickup
   layers:
   - Default
   - TransparentFX

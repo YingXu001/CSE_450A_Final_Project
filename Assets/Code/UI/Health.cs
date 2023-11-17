@@ -23,6 +23,7 @@ public class Health : MonoBehaviour
         {
             maxHealth = 200;
             curHealth = maxHealth;
+            healthBar.SetHealth(curHealth);
         }
         energyBar.SetEnergy(player.energyCurrent);
     }
