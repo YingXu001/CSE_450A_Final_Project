@@ -148,7 +148,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.0055555, y: 0.96666664}
+  m_Size: {x: 1.05, y: 1.2}
   m_Direction: 0
 --- !u!114 &4539207845301487444
 MonoBehaviour:
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ShadowGroup: 0
   m_ComponentVersion: 1
-  m_HasRenderer: 0
+  m_HasRenderer: 1
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
@@ -194,7 +194,7 @@ MonoBehaviour:
   - {x: 0.5027778, y: -0.48333332, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -151986
+  m_InstanceId: 43690
   m_LocalBounds:
     m_Center: {x: 0.000000059604645, y: 0.000000029802322, z: 0}
     m_Extent: {x: 0.5027778, y: 0.48333335, z: 0}

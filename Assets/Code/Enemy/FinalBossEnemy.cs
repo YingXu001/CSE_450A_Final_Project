@@ -13,6 +13,7 @@ public class FinalBossEnemy : MonoBehaviour
     public float bulletSpeed = 10f; // Speed of the bullets
     public int bossHealth = 100; // Health of the boss
     public int maxBossHealth = 100;
+    public int damageFromPlayer;
     private Vector2 screenBounds;
     private float lastTeleportTime = 0;
     public GameObject smallEnemyPrefab; // The prefab for the small enemies
@@ -122,7 +123,7 @@ public class FinalBossEnemy : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Bullet"))
         {
-            TakeDamage(30);
+            TakeDamage(damageFromPlayer);
         }
         
     }
