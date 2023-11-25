@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6411624134911430727}
   - component: {fileID: 7899948659187074888}
   m_Layer: 11
-  m_Name: RandomEnemy
+  m_Name: randomEnemyPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,7 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637691b841be45e439147c38c1da40d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallTilemap: {fileID: 0}
   pushBackForce: 5
   damage: 10
 --- !u!50 &6411624134911430727
