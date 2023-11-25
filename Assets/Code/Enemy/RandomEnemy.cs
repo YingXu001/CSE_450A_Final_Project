@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class RandomEnemy : MonoBehaviour
 {
+    public Tilemap wallTilemap; // Assign this in the Inspector
     public float pushBackForce = 10f;
     public int damage = 20;
     private SubController player;
@@ -12,18 +14,40 @@ public class RandomEnemy : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<SubController>();
-        if (player != null)
+        transform.position = FindRandomWallPosition();
+        gameObject.layer = LayerMask.NameToLayer("RandomEnemy");
+
+        var spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
         {
-            // Set the enemy's position next to the player
-            transform.position = player.transform.position + Vector3.right; // Adjust as necessary
-            // Set layer above the wall
-            gameObject.layer = LayerMask.NameToLayer("AboveWall"); // Replace "AboveWall" with your layer name
+            spriteRenderer.sortingLayerName = "Above"; // Use the correct Sorting Layer name
+            spriteRenderer.sortingOrder = 1; // Use an appropriate sorting order value to ensure it renders above the wall
         }
+
+        Debug.Log("RandomEnemy started at position: " + transform.position);
     }
 
-    private void Update()
+    private Vector3 FindRandomWallPosition()
     {
-        // Optionally, you can add code here to make the enemy follow the player or perform other actions.
+        BoundsInt bounds = wallTilemap.cellBounds;
+        TileBase[] allTiles = wallTilemap.GetTilesBlock(bounds);
+
+        for (int x = bounds.xMin; x < bounds.xMax; x++)
+        {
+            for (int y = bounds.yMin; y < bounds.yMax; y++)
+            {
+                Vector3Int localPlace = (new Vector3Int(x, y, (int)wallTilemap.transform.position.z));
+                Vector3 place = wallTilemap.CellToWorld(localPlace);
+                if (wallTilemap.HasTile(localPlace))
+                {
+                    if (wallTilemap.GetTile(localPlace).name == "Wall")
+                    {
+                        return place;
+                    }
+                }
+            }
+        }
+        return wallTilemap.transform.position;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
