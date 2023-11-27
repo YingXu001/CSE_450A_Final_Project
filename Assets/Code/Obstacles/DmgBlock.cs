@@ -32,7 +32,8 @@ public class DmgBlock : MonoBehaviour
         Rigidbody2D playerRigidbody = playerObj.GetComponent<Rigidbody2D>();
         if (playerRigidbody != null)
         {
-            Vector2 pushDirection = -playerRigidbody.velocity.normalized;
+            Vector2 pushDirection = playerRigidbody.velocity.normalized;
+
             playerRigidbody.AddForce(pushDirection * pushBackForce, ForceMode2D.Impulse);
         }
 
