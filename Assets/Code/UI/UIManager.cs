@@ -9,7 +9,7 @@ using UnityEngine.Audio;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    public Text ammoText, speedText;
+    public Text ammoText, speedText, torpedoesText;
     public float fadeTime;
     public GameObject AmmoUI_1;
     public GameObject AmmoUI_2;
@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     {
         subController_script = GameObject.FindGameObjectWithTag("Player").GetComponent<SubController>();
         ammoText.text = ": " + 0;
+        torpedoesText.text = ": " + 0;
         speedText.text = "Speed: " + 0;
 
         //fade away level message
@@ -44,7 +45,8 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        level = SceneManager.GetActiveScene().buildIndex-1;
+        level = SceneManager.GetActiveScene().buildIndex-2;
+        torpedoesText.text = ": " + subController_script.numTorpedo.ToString();
         ammoText.text = ": " + subController_script.numAmmo.ToString();
         speedText.text = "Speed: " + subController_script.speedLevel.ToString();
         levelText.text = "Level " + level.ToString();
