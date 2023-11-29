@@ -9,7 +9,7 @@ public class LevelExit : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<SubController>())
         {
-            if(SceneManager.GetActiveScene().buildIndex == 5)
+            if(SceneManager.GetActiveScene().buildIndex == 6)
             {
                 SceneManager.LoadScene("VictoryScreen");
                 Cursor.lockState = CursorLockMode.None;
