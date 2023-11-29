@@ -8,7 +8,8 @@ public class BossEnemy : MonoBehaviour
     public GameObject bossBulletPrefab;
     public float shootInterval = 2f;
     public float bulletSpeed = 10f;
-
+    public int bossHealth;
+    public int damageFromPlayer;
     private float lastShotTime;
 
     private SubController player; // Get the submarine object
@@ -71,6 +72,10 @@ public class BossEnemy : MonoBehaviour
         {
             HandleCollisionWithPlayer(collision.gameObject);
         }
+        else if (collision.gameObject.CompareTag("Bullet"))
+        {
+            TakeDamage(damageFromPlayer);
+        }
     }
 
     private void HandleCollisionWithPlayer(GameObject playerObj)
@@ -93,5 +98,19 @@ public class BossEnemy : MonoBehaviour
             Vector2 pushDirection = -playerRigidbody.velocity.normalized;
             playerRigidbody.AddForce(pushDirection * pushBackForce, ForceMode2D.Impulse);
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        bossHealth -= damage;
+
+        if (bossHealth <= 0)
+        {
+        
+            // Boss is defeated
+            Destroy(gameObject);
+            
+        }
+        
     }
 }

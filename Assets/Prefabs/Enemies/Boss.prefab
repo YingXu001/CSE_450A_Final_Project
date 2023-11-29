@@ -165,3 +165,5 @@ MonoBehaviour:
   bossBulletPrefab: {fileID: 4465241860709028371, guid: b5b407af590d36b42a448d8d37a92dbf, type: 3}
   shootInterval: 2
   bulletSpeed: 5
+  bossHealth: 300
+  damageFromPlayer: 40
