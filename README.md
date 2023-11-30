@@ -1,39 +1,47 @@
-# CSE-450A-Final-Project
+# CSE-450A-Final-Project  Submarine Adventure Game
 
 ## Description
-In "Submarine Adventure", the player assumes the role of a submarine navigating through challenging underwater terrains. Your mission is to explore each level, tackle obstacles, combat aquatic adversaries, and discover the exit portal to progress. But be wary – ammunition is limited and danger lurks in the depths!
+In this game, players navigate a submarine through challenging underwater environments. Each level is filled with obstacles and hostile sea creatures. Players must find the exit portal, resembling a well, to progress. Ammo is limited, and players can engage in combat with fish and sea monsters. Strategic use of resources and managing enemy encounters are key to survival.
 
 ## Controls
-- **Move Forward:** 'W'
-- **Move Backward:** 'S'
-- **Rotate Left:** 'A'
-- **Rotate Right:** 'D'
-- **Shoot:** 'SPACE'
-- **Change Ammo Type:** 'P'
-- **Change Speed:** 
-  - **Slow:** '1'
-  - **Medium:** '2'
-  - **Fast:** '3'
-- **Pause Game:** 'ESC'
+- Move Forward: `W`
+- Move Backward: `S`
+- Rotate Left: `A`
+- Rotate Right: `D`
+- Shoot: Left Mouse Button
+- Tracking Torpedo: `Space`
+- Change Ammo Type: Right Mouse Button
+- Change Speed (slow, medium, fast): `1`, `2`, `3`
+- Mecha Form: Ultimate - `R`
+- Pause Menu: `ESC`
 
-## Adversaries
+## User Interface
+- **Start Menu**: Options to play the game, adjust volume, and toggle full-screen mode.
+- **Instruction Pages**: Two pages accessible after clicking the play button.
+- **In-Game Death Menu**: Allows restarting the level or returning to the main menu.
+- **Pause Menu**: Access controls, change settings, or continue the game.
+- **Victory Screen**: Appears after beating the final boss, with an option to return to the start menu.
 
-### FishEnemy
-- Collision Damage: Submarine loses 10 health points.
-- Required Bullets to Destroy: 1
-- Collision Required to Destroy: 1
-
-### MonsterEnemy
-- Collision Damage: Submarine loses 20 health points.
-- Required Bullets to Destroy: 3
-- Collision Required to Destroy: 3
+## Enemies
+- **FishEnemy**: -10 health, +30 energy on hit. Destroyed with 1 bullet.
+- **MonsterEnemy1 (Grey)**: -20 health, +20 energy on hit. Takes 3 bullets to destroy. Shoots randomly.
+- **MonsterEnemy2 (Green)**: -15 health, +15 energy on hit. Takes 3 bullets to destroy. Shoots directly at the submarine.
+- **BossEnemy**: -50 health on hit. Attacks in eight directions.
+- **FinalBossEnemy**: -50 health on hit. Attacks in eight directions, appears randomly. Spawns small enemies when at half health.
 
 ## Resources
-- Red dots on the map can give you 1 ammo.
-- Crystal Orbs can give you 15 health.
+- **Red Dot**: +2 ammo.
+- **Crystal Orb**: +15 health.
+- **Shield**: Restores shield if deactivated.
+- **Green Circle (Final Boss Level)**: 15 seconds of infinite ammo.
+- **Torpedo**: +5 torpedoes.
 
-## Additons
-The submarine has a shield in the beginning which will be deactivated once hit the fish or monsters.
+## Additional Features
+- **Shield**: Blocks the first hit, then deactivates.
+- **Energy System**: Destroy enemies to gain energy. At 100 energy, transform into Mecha: slower speed, doubled health. Ultimate consumes 50 energy. Transforms back to submarine at 0 energy.
+- **Torpedo Use**: Limited to 5 per level, with pickups only in the final boss level.
 
 ## Play the Game
 Dive into the adventure [here](https://yingxu.itch.io/450finalproject)!
+
+Enjoy navigating the treacherous depths and defeating formidable sea monsters in your submarine adventure!
