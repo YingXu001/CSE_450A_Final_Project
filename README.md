@@ -1,5 +1,8 @@
 # CSE-450A-Final-Project  Submarine Adventure Game
 
+## Demo
+![image](https://github.com/YingXu001/CSE-450A-Final-Project/assets/50728665/74e11bfa-014e-45cb-951b-ae100fe4b1f5)
+
 ## Description
 In this game, players navigate a submarine through challenging underwater environments. Each level is filled with obstacles and hostile sea creatures. Players must find the exit portal, resembling a well, to progress. Ammo is limited, and players can engage in combat with fish and sea monsters. Strategic use of resources and managing enemy encounters are key to survival.
 
