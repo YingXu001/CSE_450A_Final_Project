@@ -1,4 +1,4 @@
-# CSE-450A-Final-Project  Submarine Adventure Game
+# CSE 450A Final Project  Submarine Adventure Game
 
 ## Demo
 ![image](https://github.com/YingXu001/CSE-450A-Final-Project/assets/50728665/74e11bfa-014e-45cb-951b-ae100fe4b1f5)
